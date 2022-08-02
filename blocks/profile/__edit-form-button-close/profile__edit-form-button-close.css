@@ -1,0 +1,29 @@
+.profile__edit-form-button-close {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  padding: 0;
+  align-self: end;
+  margin-bottom: 16px;
+  width: 20px;
+  height: 20px;
+}
+
+.profile__edit-form-button-close:hover {
+  transition: .2s ease-in-out;
+  opacity: .6;
+  cursor: pointer;
+}
+
+@media screen and (min-width: 879px) {
+  .profile__edit-form-button-close {
+    width: 32px;
+    height: 32px;
+    position: absolute;
+    right: calc(-8px - 32px);
+    top: calc(-8px - 32px);
+  }
+}

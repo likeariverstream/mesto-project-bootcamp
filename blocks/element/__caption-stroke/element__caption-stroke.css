@@ -1,0 +1,21 @@
+.element__caption-stroke {
+  display: block;
+  background-image: url(../../../images/element__caption-stroke-disabled.svg);
+  background-size: cover;
+  min-width: 22px;
+  max-height: 19px;
+  margin-top: 5px;
+  margin-right: 3px;
+}
+
+.element__caption-stroke:hover {
+  transition: .2s ease-in-out;
+  background-image: url(../../../images/element__caption-stroke-hover.svg);
+  cursor: pointer;
+}
+
+.element__caption-stroke:active {
+  background-image: url(../../../images/element__caption-stroke-active.svg);
+  opacity: 1;
+  cursor: pointer;
+}

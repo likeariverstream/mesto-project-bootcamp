@@ -1,0 +1,48 @@
+@import url(../vendor/normalize.css);
+@import url(../fonts/Inter/inter.css);
+
+@import url(../blocks/root/root.css);
+@import url(../blocks/page/page.css);
+@import url(../blocks/header/header.css);
+@import url(../blocks/header/__logo/header__logo.css);
+@import url(../blocks/content/content.css);
+
+@import url(../blocks/profile/profile.css);
+@import url(../blocks/profile/__avatar/profile__avatar.css);
+@import url(../blocks/profile/__avatar-caption/profile__avatar-caption.css);
+@import url(../blocks/profile/__avatar-title/profile__avatar-title.css);
+@import url(../blocks/profile/__avatar-subtitle/profile__avatar-subtitle.css);
+
+@import url(../blocks/profile/__edit-button/profile__edit-button.css);
+@import url(../blocks/profile/__edit-button-image/profile__edit-button-image.css);
+
+@import url(../blocks/popup/popup.css);
+@import url(../blocks/popup/_opened/popup_opened.css);
+
+@import url(../blocks/profile/__edit-form/profile__edit-form.css);
+@import url(../blocks/profile/__edit-form-fieldset/profile__edit-form-fieldset.css);
+
+@import url(../blocks/profile/__edit-form-button-close/profile__edit-form-button-close.css);
+@import url(../blocks/profile/__edit-form-button-close-image/profile__edit-form-button-close-image.css);
+@import url(../blocks/profile/__edit-form-legend/profile__edit-form-legend.css);
+@import url(../blocks/profile/__edit-form-label/profile__edit-form-label.css);
+@import url(../blocks/profile/__edit-form-input/profile__edit-form-input.css);
+@import url(../blocks/profile/__edit-form-button-save/profile__edit-form-button-save.css);
+@import url(../blocks/profile/__edit-form/_opened/profile__edit-form_opened.css);
+
+
+
+@import url(../blocks/profile/__add-button/profile__add-button.css);
+@import url(../blocks/profile/__add-button-image/profile__add-button-image.css);
+
+@import url(../blocks/cards/cards.css);
+@import url(../blocks/elements/elements.css);
+@import url(../blocks/element/element.css);
+@import url(../blocks/element/__image/element__image.css);
+@import url(../blocks/element/__caption/element__caption.css);
+@import url(../blocks/element/__caption-title/element__caption-title.css);
+@import url(../blocks/element/__caption-stroke/element__caption-stroke.css);
+
+
+@import url(../blocks/footer/footer.css);
+@import url(../blocks/footer/__copyright/footer__copyright.css);

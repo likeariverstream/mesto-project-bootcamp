@@ -1,0 +1,22 @@
+.profile__avatar-subtitle {
+  margin: 0;
+  font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  text-align: center;
+  padding: 6px 0 33px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+@media screen and (min-width: 879px) {
+  .profile__avatar-subtitle {
+    align-self: flex-start;
+    font-size: 18px;
+    line-height: 22px;
+
+  }
+}

@@ -1,0 +1,13 @@
+.profile__edit-form-button-close-image {
+  display: block;
+  width: 20px;
+  height: 20px;
+  object-fit: cover;
+}
+
+@media screen and (min-width: 879px) {
+  .profile__edit-form-button-close-image {
+    width: 32px;
+    height: 32px;
+  }
+}
