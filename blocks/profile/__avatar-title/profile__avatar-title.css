@@ -1,5 +1,6 @@
 .profile__avatar-title {
-  margin: 0;
+  margin: 0 0 0 30px;
+  align-self: center;
   display: flex;
   justify-content: space-between;
   font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
@@ -14,8 +15,9 @@
 
 }
 
-@media screen and (min-width: 879px) {
+@media screen and (min-width: 1000px) {
   .profile__avatar-title {
+    margin: 0;
     font-size: 42px;
     line-height: 48px;
   }

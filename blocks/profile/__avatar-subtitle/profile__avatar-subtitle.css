@@ -12,11 +12,10 @@
   overflow: hidden;
 }
 
-@media screen and (min-width: 879px) {
+@media screen and (min-width: 1000px) {
   .profile__avatar-subtitle {
     align-self: flex-start;
     font-size: 18px;
     line-height: 22px;
-
   }
 }

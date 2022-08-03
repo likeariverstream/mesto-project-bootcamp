@@ -4,11 +4,10 @@
   min-width: 320px;
 }
 
-@media screen and (min-width: 879px) {
+@media screen and (min-width: 1000px) {
   .footer {
     min-width: 880px;
     padding-top: 67px;
     padding-bottom: 60px;
   }
-
 }

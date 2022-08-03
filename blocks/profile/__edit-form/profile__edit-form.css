@@ -1,21 +1,18 @@
 .profile__edit-form {
   display: flex;
   flex-direction: column;
-  margin: 0 auto;
-  visibility: hidden;
-  width: 100%;
+  margin: 85px auto 0;
+  max-width: 288px;
   height: 100%;
-  background: #000000;
+  background: rgba(0, 0, 0, 0);
   z-index: 15;
-  position: absolute;
-  top: 0;
-
+  opacity: 1;
+  border-radius: 10px;
 }
 
-@media screen and (min-width: 879px) {
+@media screen and (min-width: 1000px) {
   .profile__edit-form {
     max-width: 430px;
-    left: calc((880px - 430px)/2);
-
+    margin-top: 145px;
   }
 }

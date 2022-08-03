@@ -2,7 +2,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background: transparent;
+  background: url(../../../images/profile__edit-form-button-close.svg) no-repeat;
+  background-position: 50% 50%;
+  background-size: 20px 20px;
   border: 0;
   border-radius: 0;
   padding: 0;
@@ -18,12 +20,13 @@
   cursor: pointer;
 }
 
-@media screen and (min-width: 879px) {
+@media screen and (min-width: 1000px) {
   .profile__edit-form-button-close {
     width: 32px;
     height: 32px;
-    position: absolute;
-    right: calc(-8px - 32px);
-    top: calc(-8px - 32px);
+    position: relative;
+    right: -40px;
+    top: 7px;
+    background-size: 32px 32px;
   }
 }

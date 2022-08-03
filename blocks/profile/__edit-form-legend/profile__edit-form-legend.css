@@ -1,6 +1,6 @@
 .profile__edit-form-legend {
   display: block;
-  margin: 25px 0 75px;
+  margin: 20px 0 75px;
   padding-inline: 0;
   font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
   font-style: normal;
@@ -11,12 +11,10 @@
 }
 
 
-@media screen and (min-width: 879px) {
-
+@media screen and (min-width: 1000px) {
   .profile__edit-form-legend {
     font-size: 24px;
     line-height: 29px;
-    margin: 34px 0 54px;
-
+    margin: 28px auto 49px 20px;
   }
 }

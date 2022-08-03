@@ -5,10 +5,9 @@
   grid-template-columns: 1fr;
   grid-template-rows: repeat(6, 1fr);
   row-gap: 20px;
-
 }
 
-@media screen and (min-width: 879px) {
+@media screen and (min-width: 1000px) {
   .elements {
     padding-top: 22px;
     grid-template-columns: 1fr 1fr 1fr;
