@@ -1,4 +1,5 @@
-.element__caption-title {
+.element__title {
+  display: inline;
   margin: 0;
   padding: 0;
   font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;

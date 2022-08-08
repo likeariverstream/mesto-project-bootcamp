@@ -1,8 +1,8 @@
-.profile__edit-form-button-close {
+.popup__button-close {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: url(../../../images/profile__edit-form-button-close.svg) no-repeat;
+  background: url(../../../images/popup__button-close.svg) no-repeat;
   background-position: 50% 50%;
   background-size: 20px 20px;
   border: 0;
@@ -12,21 +12,22 @@
   margin-bottom: 16px;
   width: 20px;
   height: 20px;
+  transition: .2s ease-in-out;
 }
 
-.profile__edit-form-button-close:hover {
-  transition: .2s ease-in-out;
+.popup__button-close:hover {
   opacity: .6;
   cursor: pointer;
 }
 
 @media screen and (min-width: 1000px) {
-  .profile__edit-form-button-close {
+  .popup__button-close {
+    margin-right: 0;
     width: 32px;
     height: 32px;
-    position: relative;
+    position: absolute;
     right: -40px;
-    top: 7px;
+    top: -40px;
     background-size: 32px 32px;
   }
 }

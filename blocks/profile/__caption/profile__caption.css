@@ -1,0 +1,22 @@
+.profile__caption {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: center;
+  max-width: 282px;
+  align-items: center;
+  box-sizing: border-box;
+  margin: 0;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+@media screen and (min-width: 1000px) {
+  .profile__caption {
+    margin-left: 30px;
+    margin-top: 45px;
+    justify-content: flex-start;
+    max-width: 294px;
+  }
+}

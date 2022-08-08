@@ -1,11 +1,11 @@
-.profile__edit-form-button-save {
+.popup__button-save {
+  border: 0;
   background: #000000;
   border-radius: 2px;
-  margin-top: 21px;
-  margin-bottom: 8px;
+  margin-top: 12px;
   padding: 0;
   min-width: 238px;
-  min-height: 50px;
+  min-height: 46px;
   font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
   font-style: normal;
   font-weight: 400;
@@ -13,21 +13,21 @@
   line-height: 17px;
   text-align: center;
   color: #FFFFFF;
+  transition: .2s ease-in-out;
+  box-sizing: border-box;
 }
 
-
-.profile__edit-form-button-save:hover {
-  transition: .2s ease-in-out;
+.popup__button-save:hover {
   opacity: .8;
   cursor: pointer;
 }
 
 @media screen and (min-width: 1000px) {
-  .profile__edit-form-button-save {
+  .popup__button-save {
     font-size: 18px;
     line-height: 22px;
     min-width: 358px;
-    margin-top: 25px;
-    margin-bottom: 25px;
+    min-height: 50px;
+    margin-top: 16px;
   }
 }

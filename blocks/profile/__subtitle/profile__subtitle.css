@@ -1,4 +1,5 @@
-.profile__avatar-subtitle {
+.profile__subtitle {
+  display: block;
   margin: 0;
   font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
   font-style: normal;
@@ -6,16 +7,18 @@
   font-size: 14px;
   line-height: 17px;
   text-align: center;
-  padding: 6px 0 33px;
+  padding: 6px 0 33px 27px;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
+  box-sizing: border-box;
 }
 
 @media screen and (min-width: 1000px) {
-  .profile__avatar-subtitle {
+  .profile__subtitle {
     align-self: flex-start;
     font-size: 18px;
     line-height: 22px;
+    padding-left: 0;
   }
 }

@@ -1,8 +1,6 @@
-.profile__avatar-title {
-  margin: 0 0 0 30px;
+.profile__title {
   align-self: center;
-  display: flex;
-  justify-content: space-between;
+  display: block;
   font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
   font-style: normal;
   font-weight: 500;
@@ -12,11 +10,13 @@
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
-
+  box-sizing: border-box;
+  margin: 0;
+  margin-left: 26px;
 }
 
 @media screen and (min-width: 1000px) {
-  .profile__avatar-title {
+  .profile__title {
     margin: 0;
     font-size: 42px;
     line-height: 48px;

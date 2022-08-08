@@ -1,5 +1,4 @@
 .profile__add-button {
-  border-radius: 0;
   display: flex;
   min-width: 282px;
   border: 2px solid #FFFFFF;
@@ -14,18 +13,18 @@
   box-sizing: border-box;
   justify-content: center;
   align-items: center;
+  transition: .2s ease-in-out;
 }
 
 .profile__add-button:hover {
-  transition: .2s ease-in-out;
   opacity: .6;
   cursor: pointer;
 }
 
 @media screen and (min-width: 1000px) {
   .profile__add-button {
-    margin-left: 244px;
-    margin-top: 5px;
+    margin-left: auto;
+    margin-top: 8px;
     min-width: 150px;
     background-size: 22px 22px;
   }

@@ -1,10 +1,10 @@
 .header__logo {
   display: block;
   background-image: url(../../../images/logo.svg);
-  background-size: cover;
+  background-size: 100%;
   min-width: 103.74px;
   min-height: 24.4px;
-  margin: 0 auto 31.6px 27px;
+  margin: 0 auto 31.6px 8px;
 }
 
 @media screen and (min-width: 1000px) {
@@ -13,6 +13,5 @@
     min-height: 33px;
     margin-left: 0;
     margin-bottom: 41px;
-
   }
 }
