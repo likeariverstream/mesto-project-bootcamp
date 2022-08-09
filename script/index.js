@@ -1,6 +1,7 @@
 'use strict';
 
 const popup = document.querySelector('.popup'),
+  popupContainer = document.querySelector('.popup__container'),
   popupEditButton = document.querySelector('.profile__edit-button'),
   popupCloseButton = document.querySelector('.popup__button-close'),
   //Для работы с объектами input:
@@ -10,6 +11,7 @@ const popup = document.querySelector('.popup'),
   inputFullName = document.querySelectorAll('.popup__input')[0],
   inputProfession = document.querySelectorAll('.popup__input')[1],
   popupSaveButton = document.querySelector('.popup__button-save'),
+  popupAddButton = document.querySelector('.profile__add-button'),
   //Для работы с массивом изображений:
   elementImage = document.querySelectorAll('.element__image'),
   elementTitle = document.querySelectorAll('.element__title'),
@@ -39,14 +41,19 @@ const popup = document.querySelector('.popup'),
       name: 'Байкал',
       link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
     }
-  ];
+  ],
+  //Шаблон формы добавления картинки:
+  addFormTemplate = document.querySelector('#add-form').content,
+  addForm = addFormTemplate.querySelector('.popup__form').cloneNode(true);
 
 function closePopup() {
     popup.classList.remove('popup_opened');
+    addForm.remove();
+    popupContainer.append(popupForm);
 }
 
 popupEditButton.addEventListener('click', () => {
-  popup.classList.add('popup_opened');
+  popup.classList.add('popup_opened'); // вынести в отдельную функцию?
   recordInput();
 });
 
@@ -93,4 +100,8 @@ elementTitle.forEach(() => {
   }
 });
 
-console.log(elementTitle);
+popupAddButton.addEventListener('click', () =>{
+  popupForm.remove();
+  popup.classList.add('popup_opened');
+  popupContainer.append(addForm);
+});

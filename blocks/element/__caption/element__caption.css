@@ -2,6 +2,6 @@
   display: flex;
   justify-content: space-between;
   padding: 25px 15px 25px 21px;
-  min-width: 282px;
+  max-width: 282px;
   box-sizing: border-box;
 }

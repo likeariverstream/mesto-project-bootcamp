@@ -17,7 +17,7 @@
         <img class="profile__avatar" src="./images/image_avatar.jpg" alt="Аватар">
         <div class="profile__info">
           <div class="profile__caption">
-            <h1 class="profile__title">Жак-Ив</h1>
+            <h1 class="profile__title">Жак-Ив Кусто</h1>
             <p class="profile__subtitle">Исследователь океана</p>
           </div>
           <button class="profile__edit-button" type="button" aria-label="Редактировать"></button>
@@ -88,6 +88,16 @@
       </div>
     </div>
   </div>
+  <template id="add-form">
+    <form class="popup__form" name="add-form" method="post" autocomplete="off">
+      <fieldset class="popup__fieldset">
+        <h2 class="popup__legend">Новое место</h2>
+        <input class="popup__input" type="text" name="fullname" placeholder="Название" required>
+        <input class="popup__input" type="text" name="profession" placeholder="Ссылка на картинку" required>
+        <button class="popup__button-save" type="submit" aria-label="Сохранить">Сохранить</button>
+      </fieldset>
+    </form>
+  </template>
   <script src="./script/index.js"></script>
 </body>
 
