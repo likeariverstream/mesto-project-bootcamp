@@ -7,6 +7,7 @@
   <title>Mesto</title>
   <link rel="stylesheet" href="./pages/index.css">
 </head>
+
 <body class="root">
   <div class="page">
     <header class="header">
@@ -21,7 +22,7 @@
             <p class="profile__subtitle">Исследователь океана</p>
           </div>
           <button class="profile__edit-button" type="button" aria-label="Редактировать"></button>
-      </div>
+        </div>
         <button class="profile__add-button" type="button" aria-label="Добавить"></button>
       </section>
       <section class="cards">
@@ -92,8 +93,8 @@
     <form class="popup__form" name="add-form" method="post" autocomplete="off">
       <fieldset class="popup__fieldset">
         <h2 class="popup__legend">Новое место</h2>
-        <input class="popup__input" type="text" name="fullname" placeholder="Название" required>
-        <input class="popup__input" type="text" name="profession" placeholder="Ссылка на картинку" required>
+        <input class="popup__input" type="text" name="image-name" placeholder="Название" required>
+        <input class="popup__input" type="text" name="image-link" placeholder="Ссылка на картинку" required>
         <button class="popup__button-save" type="submit" aria-label="Сохранить">Сохранить</button>
       </fieldset>
     </form>
