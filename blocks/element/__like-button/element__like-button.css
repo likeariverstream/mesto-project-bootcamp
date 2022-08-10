@@ -1,5 +1,5 @@
 .element__like-button {
-  padding: 0;
+  padding: 0 12px 0;
   appearance: none;
   background: url(../../../images/element__like-button-disabled.svg) no-repeat;
   background-position: 50% 50%;

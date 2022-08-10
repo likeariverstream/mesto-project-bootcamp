@@ -52,6 +52,9 @@ const initialCards = [
 let copyInitialCards = initialCards.slice();
 //Реализация лайков
 const likeButton = document.querySelectorAll('.element__like-button');
+//Удаление карточек
+const deleteButton = document.querySelectorAll('.element__delete-button');
+console.log(deleteButton);
 
 
 
@@ -144,3 +147,12 @@ likeButton.forEach(likeButton => {
 }
 
 likingButton();
+
+function deletingCard() {
+deleteButton.forEach(deleteButton => {
+  deleteButton.onclick = () =>{
+      deleteButton.parentElement.remove();
+  };
+});
+}
+deletingCard();
