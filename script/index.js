@@ -14,7 +14,7 @@ const popup = document.querySelector('.popup'),
   popupSaveButton = document.querySelector('.popup__button-save'),
   popupAddButton = document.querySelector('.profile__add-button');
 //Для работы с массивом изображений:
-let elementImage = document.querySelectorAll('.element__image'),
+const elementImage = document.querySelectorAll('.element__image'),
   elementTitle = document.querySelectorAll('.element__title');
 //Массив ссылок:
 const initialCards = [
@@ -54,18 +54,23 @@ let copyInitialCards = initialCards.slice();
 const likeButton = document.querySelectorAll('.element__like-button');
 //Удаление карточек
 const deleteButton = document.querySelectorAll('.element__delete-button');
-console.log(deleteButton);
-
-
-
 
 const imageName = addFormCopy.querySelectorAll('.popup__input')[0],
-  imageLink = addFormCopy.querySelectorAll('.popup__input')[1];
+  imageLink = addFormCopy.querySelectorAll('.popup__input')[1],
+
+  //Открытие попапа с картинкой
+  addImageFormTemplate = document.querySelector('#image-form').content,
+  addImageForm = addImageFormTemplate.querySelector('.popup__form'),
+  addImageFormCopy = addImageForm.cloneNode(true),
+  popupImage = addImageFormCopy.querySelector('.popup__image'),
+  popupTitle = addImageFormCopy.querySelector('.popup__title');
 
 function closePopup() {
   popup.classList.remove('popup_opened');
   addFormCopy.remove();
+  addImageFormCopy.remove();
   popupContainer.append(popupForm);
+
 }
 
 popupEditButton.addEventListener('click', () => {
@@ -139,20 +144,36 @@ popupAddButton.addEventListener('click', () => {
 });
 
 function likingButton() {
-likeButton.forEach(likeButton => {
-  likeButton.onclick = () => {
-    likeButton.classList.toggle('element__like-button_active');
-  };
-});
+  likeButton.forEach(likeButton => {
+    likeButton.onclick = () => {
+      likeButton.classList.toggle('element__like-button_active');
+    };
+  });
 }
 
 likingButton();
 
 function deletingCard() {
-deleteButton.forEach(deleteButton => {
-  deleteButton.onclick = () =>{
+  deleteButton.forEach(deleteButton => {
+    deleteButton.onclick = () => {
       deleteButton.parentElement.remove();
-  };
-});
+    };
+  });
 }
+
 deletingCard();
+
+function imagePopupOpen() {
+  elementImage.forEach(elementImage => {
+    elementImage.onclick = () => {
+      popupForm.remove();
+      popup.classList.add('popup_opened');
+      popupContainer.append(addImageFormCopy);
+      popupImage.src = elementImage.src;
+      popupImage.alt = elementImage.alt;
+      popupTitle.textContent = elementImage.alt;
+    };
+  });
+}
+
+imagePopupOpen();
