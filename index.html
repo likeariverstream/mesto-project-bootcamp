@@ -26,56 +26,7 @@
         <button class="profile__add-button" type="button" aria-label="Добавить"></button>
       </section>
       <section class="cards">
-        <ul class="elements">
-          <li class="element">
-            <img src="./images/Карачаевск.png" alt="Карачаевск" class="element__image">
-            <button class="element__delete-button" type="button" aria-label="Удалить"></button>
-            <div class="element__caption">
-              <h2 class="element__title">Карачаевск</h2>
-              <button class="element__like-button" type="button" aria-label="Лайк"></button>
-            </div>
-          </li>
-          <li class="element">
-            <img src="./images/Гора_Эльбрус.png" alt="Гора Эльбрус" class="element__image">
-            <button class="element__delete-button" type="button" aria-label="Удалить"></button>
-            <div class="element__caption">
-              <h2 class="element__title">Гора Эльбрус</h2>
-              <button class="element__like-button" type="button" aria-label="Лайк"></button>
-            </div>
-          </li>
-          <li class="element">
-            <img src="./images/Домбай.png" alt="Домбай" class="element__image">
-            <button class="element__delete-button" type="button" aria-label="Удалить"></button>
-            <div class="element__caption">
-              <h2 class="element__title">Домбай</h2>
-              <button class="element__like-button" type="button" aria-label="Лайк"></button>
-            </div>
-          </li>
-          <li class="element">
-            <img src="./images/Карачаевск.png" alt="Карачаевск" class="element__image">
-            <button class="element__delete-button" type="button" aria-label="Удалить"></button>
-            <div class="element__caption">
-              <h2 class="element__title">Карачаевск</h2>
-              <button class="element__like-button" type="button" aria-label="Лайк"></button>
-            </div>
-          </li>
-          <li class="element">
-            <img src="./images/Гора_Эльбрус.png" alt="Гора Эльбрус" class="element__image">
-            <button class="element__delete-button" type="button" aria-label="Удалить"></button>
-            <div class="element__caption">
-              <h2 class="element__title">Гора Эльбрус</h2>
-              <button class="element__like-button" type="button" aria-label="Лайк"></button>
-            </div>
-          </li>
-          <li class="element">
-            <img src="./images/Домбай.png" alt="Домбай" class="element__image">
-            <button class="element__delete-button" type="button" aria-label="Удалить"></button>
-            <div class="element__caption">
-              <h2 class="element__title">Домбай</h2>
-              <button class="element__like-button" type="button" aria-label="Лайк"></button>
-            </div>
-          </li>
-        </ul>
+        <ul class="elements"></ul>
       </section>
     </main>
     <footer class="footer">
@@ -95,7 +46,7 @@
       </div>
     </div>
   </div>
-  <template id="add-form">
+  <!-- <template id="add-form">
     <form class="popup__form" name="add-form" method="post" autocomplete="off">
       <fieldset class="popup__fieldset">
         <h2 class="popup__legend">Новое место</h2>
@@ -103,14 +54,26 @@
         <input class="popup__input" type="text" name="image-link" placeholder="Ссылка на картинку" required>
         <button class="popup__button-save" type="submit" aria-label="Сохранить">Сохранить</button>
       </fieldset>
-    </form>
-  </template>
+    </form> -->
+  <!-- </template>
     <template id="image-form">
       <div class="popup__form">
         <img class="popup__image" src="./images/Карачаевск.png" alt="Карачаевск">
         <h2 class="popup__title">Карачаевск</h2>
       </div>
+    </template> -->
+    <template id="card">
+    <li class="element">
+        <img class="element__image" src="" alt="" >
+        <button class="element__delete-button" type="button" aria-label="Удалить"></button>
+        <div class="element__caption">
+          <h2 class="element__title"></h2>
+          <button class="element__like-button" type="button" aria-label="Лайк"></button>
+        </div>
+      </li>
     </template>
+
+
   <script src="./script/index.js"></script>
 </body>
 
