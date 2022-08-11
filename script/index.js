@@ -48,6 +48,8 @@ const initialCards = [
   addFormTemplate = document.querySelector('#add-form').content,
   addForm = addFormTemplate.querySelector('.popup__form'),
   addFormCopy = addForm.cloneNode(true);
+  const elementList = document.querySelector('.elements');
+  const elementOfList = document.querySelector('.element');
 //Копия массива ссылок:
 let copyInitialCards = initialCards.slice();
 //Реализация лайков
@@ -66,11 +68,10 @@ const imageName = addFormCopy.querySelectorAll('.popup__input')[0],
   popupTitle = addImageFormCopy.querySelector('.popup__title');
 
 function closePopup() {
-  popup.classList.remove('popup_opened');
   addFormCopy.remove();
   addImageFormCopy.remove();
   popupContainer.append(popupForm);
-
+  popup.classList.remove('popup_opened');
 }
 
 popupEditButton.addEventListener('click', () => {
@@ -143,7 +144,7 @@ popupAddButton.addEventListener('click', () => {
   popupContainer.append(addFormCopy);
 });
 
-function likingButton() {
+function likeImageButton() {
   likeButton.forEach(likeButton => {
     likeButton.onclick = () => {
       likeButton.classList.toggle('element__like-button_active');
@@ -151,9 +152,9 @@ function likingButton() {
   });
 }
 
-likingButton();
+likeImageButton();
 
-function deletingCard() {
+function deleteCard() {
   deleteButton.forEach(deleteButton => {
     deleteButton.onclick = () => {
       deleteButton.parentElement.remove();
@@ -161,7 +162,7 @@ function deletingCard() {
   });
 }
 
-deletingCard();
+deleteCard();
 
 function imagePopupOpen() {
   elementImage.forEach(elementImage => {
