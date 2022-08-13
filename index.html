@@ -32,7 +32,7 @@
     <footer class="footer">
       <p class="footer__copyright">&copy; 2022 Сергей Калачев</p>
     </footer>
-    <div class="popup">
+    <div class="popup popup__edit-profile">
       <div class="popup__container">
         <button class="popup__button-close" type="button" aria-label="Закрыть"></button>
         <form class="popup__form" name="edit-form" method="post" autocomplete="off">
@@ -45,34 +45,40 @@
         </form>
       </div>
     </div>
-  </div>
-  <!-- <template id="add-form">
-    <form class="popup__form" name="add-form" method="post" autocomplete="off">
-      <fieldset class="popup__fieldset">
-        <h2 class="popup__legend">Новое место</h2>
-        <input class="popup__input" type="text" name="image-name" placeholder="Название" required>
-        <input class="popup__input" type="text" name="image-link" placeholder="Ссылка на картинку" required>
-        <button class="popup__button-save" type="submit" aria-label="Сохранить">Сохранить</button>
-      </fieldset>
-    </form> -->
-  <!-- </template>
-    <template id="image-form">
-      <div class="popup__form">
-        <img class="popup__image" src="./images/Карачаевск.png" alt="Карачаевск">
-        <h2 class="popup__title">Карачаевск</h2>
+    <div class="popup popup__add-card">
+      <div class="popup__container">
+        <button class="popup__button-close" type="button" aria-label="Закрыть"></button>
+        <form class="popup__form" name="add-form" method="post" autocomplete="off">
+          <fieldset class="popup__fieldset">
+            <h2 class="popup__legend">Новое место</h2>
+            <input class="popup__input" type="text" name="image-name" placeholder="Название" required>
+            <input class="popup__input" type="text" name="image-link" placeholder="Ссылка на картинку" required>
+            <button class="popup__button-save" type="submit" aria-label="Сохранить">Сохранить</button>
+          </fieldset>
+        </form>
       </div>
-    </template> -->
-    <template id="card">
-    <li class="element">
-        <img class="element__image" src="" alt="" >
-        <button class="element__delete-button" type="button" aria-label="Удалить"></button>
-        <div class="element__caption">
-          <h2 class="element__title"></h2>
-          <button class="element__like-button" type="button" aria-label="Лайк"></button>
+    </div>
+    </div>
+    <div class="popup popup__view-image">
+      <div class="popup__container">
+        <button class="popup__button-close" type="button" aria-label="Закрыть"></button>
+        <div class="popup__form">
+          <img class="popup__image" src="./images/Карачаевск.png" alt="Карачаевск">
+          <h2 class="popup__title">Карачаевск</h2>
         </div>
-      </li>
-    </template>
+      </div>
+    </div>
 
+  <template id="card">
+    <li class="element">
+      <img class="element__image" src="" alt="">
+      <button class="element__delete-button" type="button" aria-label="Удалить"></button>
+      <div class="element__caption">
+        <h2 class="element__title"></h2>
+        <button class="element__like-button" type="button" aria-label="Лайк"></button>
+      </div>
+    </li>
+  </template>
 
   <script src="./script/index.js"></script>
 </body>
