@@ -33,6 +33,8 @@
 
 @media screen and (min-width: 1000px) {
   .popup__input{
-    margin-left: 28px;
+    
+    /* margin-left: 28px;
+    margin-right: 28px; */
   }
 }
