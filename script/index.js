@@ -67,31 +67,34 @@ function setEventListeners() {
         evt.target.classList.toggle('element__like-button_active');
       }
       if(evt.target.classList.contains('element__image')) {
-        imagePopup.classList.add('popup_opened');
         imagePopupImage.src = evt.target.src;
         imagePopupImage.alt = evt.target.alt;
       }
       if(evt.target.classList.contains('element__delete-button')) {
         evt.target.parentNode.remove();
       }
-      if(evt.target.classList.contains('profile__edit-button')) {
-        profilePopup.classList.add('popup_opened');
-      }
-      if(evt.target.classList.contains('profile__add-button')) {
-        cardPopup.classList.add('popup_opened');
-      }
+      openPopup();
   }); 
 }
 
 setEventListeners();
 
 function createCard() {
-
   return addCard.cloneNode(true);
 }
 
 function openPopup() {
-
+  document.addEventListener('click', (evt) => {
+    if(evt.target.classList.contains('element__image')) {
+      imagePopup.classList.add('popup_opened');
+    }
+    if(evt.target.classList.contains('profile__edit-button')) {
+      profilePopup.classList.add('popup_opened');
+    }
+    if(evt.target.classList.contains('profile__add-button')) {
+      cardPopup.classList.add('popup_opened');
+    }
+  });
 }
 
 function closePopup() {
