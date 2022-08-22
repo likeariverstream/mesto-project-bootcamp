@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mesto</title>
-  <link rel="stylesheet" href="./pages/index.css">
+  <!-- <link rel="stylesheet" href="./pages/index.css"> -->
 </head>
 
 <body class="root">
@@ -15,7 +15,7 @@
     </header>
     <main class="content">
       <section class="profile">
-        <img class="profile__avatar" src="./images/image_avatar.jpg" alt="Аватар">
+        <img class="profile__avatar" src="<%=require('./images/image_avatar.jpg')%>" alt="Аватар">
         <div class="profile__info">
           <div class="profile__caption">
             <h1 class="profile__title">Жак-Ив Кусто</h1>
@@ -38,8 +38,10 @@
         <form class="popup__form" name="edit-form" method="post" autocomplete="off">
           <fieldset class="popup__fieldset">
             <h2 class="popup__legend">Редактировать профиль</h2>
-            <input class="popup__input" type="text" name="fullname" placeholder="Имя" required>
-            <input class="popup__input" type="text" name="profession" placeholder="Профессия" required>
+            <input class="popup__input" type="text" name="fullname" placeholder="Имя" minlength="2" maxlength="40" required>
+            <span class="popup__span-error">Вы пропустили это поле.</span>
+            <input class="popup__input" type="text" name="profession" placeholder="Профессия" required minlength="2" maxlength="200">
+            <span class="popup__span-error">Вы пропустили это поле.</span>
             <button class="popup__button-save" type="submit" aria-label="Сохранить">Сохранить</button>
           </fieldset>
         </form>
@@ -51,8 +53,10 @@
         <form class="popup__form" name="add-form" method="post" autocomplete="off">
           <fieldset class="popup__fieldset">
             <h2 class="popup__legend">Новое место</h2>
-            <input class="popup__input" type="text" name="image-name" placeholder="Название" required>
-            <input class="popup__input" type="text" name="image-link" placeholder="Ссылка на картинку" required>
+            <input class="popup__input" type="text" name="image-name" placeholder="Название" required minlength="2" maxlength="30">
+            <span class="popup__span-error">Вы пропустили это поле.</span>
+            <input class="popup__input" type="url" name="image-link" placeholder="Ссылка на картинку" required>
+            <span class="popup__span-error">Введите адрес сайта.</span>
             <button class="popup__button-save" type="submit" aria-label="Сохранить">Сохранить</button>
           </fieldset>
         </form>
@@ -80,7 +84,7 @@
     </li>
   </template>
 
-  <script src="./script/index.js"></script>
+  <script src="./index.js"></script>
 </body>
 
 </html>

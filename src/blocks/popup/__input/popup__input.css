@@ -5,12 +5,13 @@
   border-bottom: 1px solid rgba(0, 0, 0, .2);
   width: 100%;
   transition: 0.1s linear;
-  margin-bottom: 40px;
+  /* margin-bottom: 40px; */
   box-sizing: border-box;
   font-weight: 400;
   font-size: 14px;
   line-height: 17px;
-  color: #000;  
+  color: #000;
+  padding-bottom: 13px;
 }
 
 .popup__input:focus {
@@ -28,13 +29,5 @@
   font-weight: 400;
   font-size: 14px;
   line-height: 17px;
-  color: #000;
-}
-
-@media screen and (min-width: 1000px) {
-  .popup__input{
-    
-    /* margin-left: 28px;
-    margin-right: 28px; */
-  }
+  color: #C4C4C4;
 }
