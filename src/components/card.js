@@ -1,3 +1,5 @@
+'use strict';
+
 const initialCards = [
   {
     name: 'Архыз',
@@ -25,23 +27,50 @@ const initialCards = [
   }
 ];
 
+import {
+  openPopup,
+  imagePopup
+} from './modal';
+
 const cardTemplate = document.querySelector('#card').content;
 const cardList = document.querySelector('.elements');
 const card = cardTemplate.querySelector('.element');
+const imagePopupImage = document.querySelector('.popup__image');
 const imageCard = card.querySelector('.element__image');
 const titleCard = card.querySelector('.element__title');
+const imagePopupTitle = document.querySelector('.popup__title');
+
 
 function addInitialCards() {
-  Object.keys(initialCards).forEach((key) => {
-    imageCard.src = initialCards[key].link;
-    imageCard.alt = initialCards[key].name;
-    titleCard.textContent = initialCards[key].name;
-    cardList.append(createCard());
+  Object.keys(initialCards).forEach((item) => {
+    cardList.append(createCard(initialCards[item]));
   });
 }
 
-function createCard() {
-  return card.cloneNode(true);
+function createCard(item) {
+  const cardElement = card.cloneNode(true),
+    imageCardElement = cardElement.querySelector('.element__image'),
+    titleCardElement = cardElement.querySelector('.element__title'),
+    likeButtonCardElement = cardElement.querySelector('.element__like-button'),
+    deleteButtonCardElement = cardElement.querySelector('.element__delete-button');
+  cardElement.addEventListener('click', (evt) => {
+    if (evt.target === likeButtonCardElement) {
+      likeButtonCardElement.classList.toggle('element__like-button_active');
+    }
+    if (evt.target === imageCardElement) {
+      imagePopupImage.src = evt.target.src;
+      imagePopupImage.alt = evt.target.alt;
+      imagePopupTitle.textContent = titleCardElement.textContent;
+      openPopup(imagePopup);
+    }
+    if (evt.target === deleteButtonCardElement) {
+      deleteButtonCardElement.parentNode.remove();
+    }
+  });
+  imageCardElement.src = item.link;
+  imageCardElement.alt = item.name;
+  titleCardElement.textContent = item.name;
+  return cardElement;
 }
 
 export {

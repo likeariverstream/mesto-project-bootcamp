@@ -7,25 +7,20 @@ import {
 } from './components/card.js';
 
 import {
-  setEventListeners
 } from './components/utils.js';
 
 import {
-  closePopup,
   submitForm
 } from './components/modal.js';
 
 import {
   selectors,
-  enableValidation
+  enableValidation,
+  hasInvalid
 } from './components/validate.js';
 
 addInitialCards();
 
-setEventListeners();
-
-closePopup();
-
 submitForm();
 
-enableValidation(selectors);
+enableValidation();

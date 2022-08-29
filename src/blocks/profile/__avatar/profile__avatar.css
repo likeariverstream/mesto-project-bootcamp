@@ -5,3 +5,7 @@
   box-sizing: border-box;
   width: 120px;
 }
+
+.profile__avatar:hover {
+  opacity: .2;
+}
