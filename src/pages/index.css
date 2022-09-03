@@ -40,3 +40,6 @@
 @import url(../blocks/popup/__span-error/_active/popup__span-error_active.css);
 @import url(../blocks/element/__like-container/element__like-container.css);
 @import url(../blocks/element/__like-count/element__like-count.css);
+@import url(../blocks/popup/__update-avatar/popup__update-avatar.css);
+@import url(../blocks/popup/__button-save/_update-avatar/popup__button-save_update-avatar.css);
+@import url(../blocks/popup/__fieldset/_update-avatar/popup__fieldset_update-avatar.css);

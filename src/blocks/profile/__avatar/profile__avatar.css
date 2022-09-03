@@ -4,8 +4,27 @@
   border-radius: 120px;
   box-sizing: border-box;
   width: 120px;
+  background: url(../../../images/image-avatar.svg) no-repeat;
+  background-position: 50% 50%;
+  background-size: 120px 120px;
+  width: 120px;
+  height: 120px;
+  position: relative;
 }
 
 .profile__avatar:hover {
   opacity: .2;
+  cursor: none;
+}
+
+.profile__avatar:hover::before {
+  content: url(../../../images/update_avatar_icon.svg);
+  background: no-repeat;
+  background-position: 50% 50%;
+  background-size: 26px 26px;
+  width: 26px;
+  height: 26px;
+  position: absolute;
+  top: 37%;
+  left: 38%;
 }
