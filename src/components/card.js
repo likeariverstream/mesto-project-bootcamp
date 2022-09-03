@@ -1,36 +1,17 @@
 'use strict';
 
-const initialCards = [
-  {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-  },
-  {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-  },
-  {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-  },
-  {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-  },
-  {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-  },
-  {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-  }
-];
-
 import {
   openPopup,
   imagePopup
 } from './modal';
+
+import {
+  getNewCard,
+  myID,
+  deleteCard,
+  putLike,
+  deleteLike
+} from './api.js';
 
 const cardTemplate = document.querySelector('#card').content;
 const cardList = document.querySelector('.elements');
@@ -41,9 +22,17 @@ const titleCard = card.querySelector('.element__title');
 const imagePopupTitle = document.querySelector('.popup__title');
 
 
-function addInitialCards() {
-  Object.keys(initialCards).forEach((item) => {
-    cardList.append(createCard(initialCards[item]));
+function addInitialCards(arr) {
+  Object.keys(arr).forEach((item) => {
+    cardList.append(createCard(arr[item]));
+  });
+}
+
+function deleteButtons(arr) {
+  Object.keys(arr).forEach((item) => {
+    const elem = createCard(arr[item]);
+    const deleteButton = elem.querySelector('.element__delete-button');
+    deleteButton.remove();
   });
 }
 
@@ -52,10 +41,20 @@ function createCard(item) {
     imageCardElement = cardElement.querySelector('.element__image'),
     titleCardElement = cardElement.querySelector('.element__title'),
     likeButtonCardElement = cardElement.querySelector('.element__like-button'),
-    deleteButtonCardElement = cardElement.querySelector('.element__delete-button');
+    deleteButtonCardElement = cardElement.querySelector('.element__delete-button'),
+    likeCount = cardElement.querySelector('.element__like-count');
   cardElement.addEventListener('click', (evt) => {
     if (evt.target === likeButtonCardElement) {
-      likeButtonCardElement.classList.toggle('element__like-button_active');
+      if (!likeButtonCardElement.classList.contains('element__like-button_active')) {
+        likeButtonCardElement.classList.add('element__like-button_active');
+        likeCount.textContent = `${+likeCount.textContent + 1}`;
+        putLike(evt.target.parentNode.parentNode.parentNode.id);
+      }
+      else {
+        likeButtonCardElement.classList.remove('element__like-button_active');
+        likeCount.textContent = `${+likeCount.textContent - 1}`;
+        deleteLike(evt.target.parentNode.parentNode.parentNode.id);
+      }
     }
     if (evt.target === imageCardElement) {
       imagePopupImage.src = evt.target.src;
@@ -65,21 +64,32 @@ function createCard(item) {
     }
     if (evt.target === deleteButtonCardElement) {
       deleteButtonCardElement.parentNode.remove();
+      deleteCard(evt.target.parentNode.id);
+      console.dir(evt.target.parentNode.id);
+      // console.log(evt.target.parentNode);
     }
   });
   imageCardElement.src = item.link;
   imageCardElement.alt = item.name;
   titleCardElement.textContent = item.name;
+  likeCount.textContent = item.likes.length;
+  cardElement.id = item._id;
+  if (item.owner._id !== myID) {
+    deleteButtonCardElement.remove();
+  }
+  if (item.likes.length !== 0) {
+    likeButtonCardElement.classList.add('element__like-button_active');
+  }
   return cardElement;
 }
 
 export {
-  initialCards,
   cardTemplate,
   cardList,
   card,
   imageCard,
   titleCard,
   addInitialCards,
-  createCard
+  createCard,
+  deleteButtons
 };

@@ -19,8 +19,21 @@ import {
   hasInvalid
 } from './components/validate.js';
 
-addInitialCards();
+import {
+  getUserInfo,
+  getInitialCards,
+  patchProfile,
+  myID,
+  initialCards,
+} from './components/api.js';
+
+
+// console.log(myID);
 
 submitForm();
 
+// getInitialCards();
+
 enableValidation();
+
+getUserInfo();

@@ -29,6 +29,12 @@ import {
   createCard
 } from './card.js';
 
+import {
+  patchProfile,
+  getNewCard,
+  myID
+} from './api.js';
+
 function openPopup(popup) {
   disableSaveButton();
   setEventListeners(popup);
@@ -81,15 +87,22 @@ function submitForm() {
     evt.preventDefault();
     profileName.textContent = inputFullName.value;
     profileProfession.textContent = inputProfession.value;
+    patchProfile();
     closePopup(profilePopup);
   });
   addImageForm.addEventListener('submit', (evt) => {
     evt.preventDefault();
     let objCard = {
+      _id: '',
       link: addImageLinkInput.value,
-      name: addImageNameInput.value
+      name: addImageNameInput.value,
+      likes: [],
+      owner: {
+        _id: myID,
+      }
     };
     cardList.prepend(createCard(objCard));
+    getNewCard(objCard);
     closePopup(cardPopup);
   });
 
@@ -101,6 +114,8 @@ export {
   imagePopup,
   profileName,
   profileProfession,
+  addImageNameInput,
+  addImageLinkInput,
   openPopup,
   closePopup,
   setEventListeners,

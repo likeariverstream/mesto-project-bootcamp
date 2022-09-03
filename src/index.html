@@ -38,9 +38,11 @@
         <form class="popup__form" name="edit-form" method="post" autocomplete="off">
           <fieldset class="popup__fieldset">
             <h2 class="popup__legend">Редактировать профиль</h2>
-            <input class="popup__input" type="text" name="fullname" placeholder="Имя" minlength="2" maxlength="40" required>
+            <input class="popup__input" type="text" name="fullname" placeholder="Имя" minlength="2" maxlength="40"
+              required>
             <span class="popup__span-error">Вы пропустили это поле.</span>
-            <input class="popup__input" type="text" name="profession" placeholder="Профессия" required minlength="2" maxlength="200">
+            <input class="popup__input" type="text" name="profession" placeholder="Профессия" required minlength="2"
+              maxlength="200">
             <span class="popup__span-error">Вы пропустили это поле.</span>
             <button class="popup__button-save" type="submit" aria-label="Сохранить">Сохранить</button>
           </fieldset>
@@ -53,7 +55,8 @@
         <form class="popup__form" name="add-form" method="post" autocomplete="off">
           <fieldset class="popup__fieldset">
             <h2 class="popup__legend">Новое место</h2>
-            <input class="popup__input" type="text" name="image-name" placeholder="Название" required minlength="2" maxlength="30">
+            <input class="popup__input" type="text" name="image-name" placeholder="Название" required minlength="2"
+              maxlength="30">
             <span class="popup__span-error">Вы пропустили это поле.</span>
             <input class="popup__input" type="url" name="image-link" placeholder="Ссылка на картинку" required>
             <span class="popup__span-error">Введите адрес сайта.</span>
@@ -62,14 +65,14 @@
         </form>
       </div>
     </div>
+  </div>
+  <div class="popup popup__view-image">
+    <div class="popup__container">
+      <button class="popup__button-close" type="button" aria-label="Закрыть"></button>
+      <img class="popup__image" src="<%=require('./images/Карачаевск.png')%>" alt="Карачаевск">
+      <h2 class="popup__title">Карачаевск</h2>
     </div>
-    <div class="popup popup__view-image">
-      <div class="popup__container">
-        <button class="popup__button-close" type="button" aria-label="Закрыть"></button>
-          <img class="popup__image" src="<%=require('./images/Карачаевск.png')%>" alt="Карачаевск">
-          <h2 class="popup__title">Карачаевск</h2>
-      </div>
-    </div>
+  </div>
 
   <template id="card">
     <li class="element">
@@ -77,8 +80,12 @@
       <button class="element__delete-button" type="button" aria-label="Удалить"></button>
       <div class="element__caption">
         <h2 class="element__title"></h2>
-        <button class="element__like-button" type="button" aria-label="Лайк"></button>
+        <div class="element__like-container">
+          <button class="element__like-button" type="button" aria-label="Лайк"></button>
+          <span class="element__like-count">0</span>
+        </div>
       </div>
+
     </li>
   </template>
 

@@ -1,6 +1,6 @@
 .element__title {
   display: inline;
-  margin: 0;
+  margin: 3px 0 24px 0;
   padding: 0;
   font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
   font-style: normal;
