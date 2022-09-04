@@ -13,13 +13,18 @@ const addImageNameInput = document.querySelector('input[name="image-name"]');
 const addImageLinkInput = document.querySelector('input[name="image-link"]');
 const profileEditForm = document.querySelector('form[name="edit-form"]');
 const addImageForm = document.querySelector('form[name="add-form"]');
+const updateAvatarPopup = document.querySelector('.popup__update-avatar');
+const avatarImage = document.querySelector('.profile__avatar-image');
+const updateAvatarForm = document.querySelector('form[name="update-avatar-form"]');
+const avatarLinkInput = document.querySelector('input[name="avatar-link"]');
 
 import {
   allForms,
   allInputs,
   disableSaveButton,
   hideError,
-  selectors
+  selectors,
+  loadCallback
 } from './validate.js';
 
 import {
@@ -51,6 +56,10 @@ function closePopup(popup) {
     hideError(item);
   });
 }
+
+avatarImage.addEventListener('click', () => {
+  openPopup(updateAvatarPopup);
+});
 
 profileEditButton.addEventListener('click', () => {
   openPopup(profilePopup);
@@ -87,7 +96,9 @@ function submitForm() {
     evt.preventDefault();
     profileName.textContent = inputFullName.value;
     profileProfession.textContent = inputProfession.value;
+    // loadCallback();
     patchProfile();
+
     closePopup(profilePopup);
   });
   addImageForm.addEventListener('submit', (evt) => {
@@ -103,9 +114,16 @@ function submitForm() {
     };
     cardList.prepend(createCard(objCard));
     getNewCard(objCard);
+    
     closePopup(cardPopup);
   });
-
+  updateAvatarForm.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+    console.log(avatarLinkInput.value);
+    avatarImage.src = avatarLinkInput.value;
+    patchProfile();
+    closePopup(updateAvatarPopup);
+  });
 }
 
 export {
@@ -116,6 +134,8 @@ export {
   profileProfession,
   addImageNameInput,
   addImageLinkInput,
+  avatarLinkInput,
+  avatarImage,
   openPopup,
   closePopup,
   setEventListeners,

@@ -65,8 +65,6 @@ function createCard(item) {
     if (evt.target === deleteButtonCardElement) {
       deleteButtonCardElement.parentNode.remove();
       deleteCard(evt.target.parentNode.id);
-      console.dir(evt.target.parentNode.id);
-      // console.log(evt.target.parentNode);
     }
   });
   imageCardElement.src = item.link;
@@ -78,7 +76,11 @@ function createCard(item) {
     deleteButtonCardElement.remove();
   }
   if (item.likes.length !== 0) {
-    likeButtonCardElement.classList.add('element__like-button_active');
+    for (let i = 0; i < item.likes.length; i++) {
+    if(item.likes[i]._id === myID) {
+      likeButtonCardElement.classList.add('element__like-button_active');
+    }
+    }
   }
   return cardElement;
 }

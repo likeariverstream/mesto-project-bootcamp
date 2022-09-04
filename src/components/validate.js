@@ -12,6 +12,13 @@ const allInputs = document.querySelectorAll(selectors.inputSelector);
 const allForms = document.querySelectorAll(selectors.formSelector);
 const allSaveButtons = document.querySelectorAll(selectors.submitButtonSelector);
 
+function loadCallback() {
+  allSaveButtons.forEach((item) => {
+    item.textContent = 'Сохранение...';
+  });
+}
+
+
 function disableSaveButton() {
   allSaveButtons.forEach((item) => {
     item.classList.add(selectors.inactiveButtonClass);
@@ -70,5 +77,6 @@ export {
   allForms,
   disableSaveButton,
   hideError,
-  enableValidation
+  enableValidation,
+  loadCallback
 };

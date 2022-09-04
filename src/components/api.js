@@ -11,7 +11,8 @@ import {
   profileName,
   profileProfession,
   addImageNameInput,
-  addImageLinkInput
+  addImageLinkInput,
+  avatarImage
 } from './modal';
 
 // получаем данные пользователя и массив карточек с сервера
@@ -30,6 +31,7 @@ function getUserInfo() {
       profileName.textContent = result.name;
       profileProfession.textContent = result.about;
       const myID = result._id; // это const моего id
+      avatarImage.src = result.avatar;
       return myID;
     })
     .then(() => { // получаем массив карточек с сервера
@@ -57,7 +59,21 @@ function patchProfile() {
     },
     body: JSON.stringify({
       name: profileName.textContent,
-      about: profileProfession.textContent
+      about: profileProfession.textContent,
+    })
+  })
+    .then(res => res.json())
+    .then((result) => {
+      console.log(result);
+    });
+    fetch('https://nomoreparties.co/v1/wbc-cohort-1/users/me/avatar', {
+    method: 'PATCH',
+    headers: {
+      authorization: 'f69a8e1a-7b4c-4898-9f33-97539dca3c0c',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      avatar: avatarImage.src,
     })
   })
     .then(res => res.json())

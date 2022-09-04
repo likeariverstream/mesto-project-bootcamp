@@ -4,11 +4,6 @@
   border-radius: 120px;
   box-sizing: border-box;
   width: 120px;
-  background: url(../../../images/image-avatar.svg) no-repeat;
-  background-position: 50% 50%;
-  background-size: 120px 120px;
-  width: 120px;
-  height: 120px;
   position: relative;
 }
 
@@ -17,7 +12,7 @@
   cursor: none;
 }
 
-.profile__avatar:hover::before {
+.profile__avatar:hover:before {
   content: url(../../../images/update_avatar_icon.svg);
   background: no-repeat;
   background-position: 50% 50%;
@@ -25,6 +20,6 @@
   width: 26px;
   height: 26px;
   position: absolute;
-  top: 37%;
-  left: 38%;
+  top: 44px;
+  left: 46px;
 }
