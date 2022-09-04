@@ -12,7 +12,8 @@ import {
   profileProfession,
   addImageNameInput,
   addImageLinkInput,
-  avatarImage
+  avatarImage,
+  submitForm
 } from './modal';
 
 // получаем данные пользователя и массив карточек с сервера
@@ -38,27 +39,33 @@ function getUserInfo() {
       const myID = result._id; // это const моего id
       avatarImage.src = result.avatar;
       return myID;
-    })
-    .then(() => { // получаем массив карточек с сервера
-      return fetch('https://nomoreparties.co/v1/wbc-cohort-1/cards ', {
-        headers: {
-          authorization: 'f69a8e1a-7b4c-4898-9f33-97539dca3c0c'
-        }
-      })
-        .then(res => {
-          if (res.ok) {
-            return res.json();
-          }
-          return Promise.reject(`Ошибка: ${res.status}`);
-        })
-        .then((result) => {
-          addInitialCards(result);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
     });
 }
+
+function getCards() { // получаем массив карточек с сервера
+  return fetch('https://nomoreparties.co/v1/wbc-cohort-1/cards ', {
+    headers: {
+      authorization: 'f69a8e1a-7b4c-4898-9f33-97539dca3c0c'
+    }
+  })
+    .then(res => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Ошибка: ${res.status}`);
+    })
+    .then((result) => {
+      addInitialCards(result);
+  
+      // console.log(result);
+      // console.log('получили массив карточек с сервера');
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+}
+
+console.log(getCards());
 
 // меняем данные профиля при редактировании
 
@@ -124,7 +131,11 @@ function getNewCard(obj) {
     body: JSON.stringify({
       name: addImageNameInput.value,
       link: addImageLinkInput.value,
-      likes: obj.likes.length
+      likes: obj.likes.length,
+      _id: '',
+      owner: {
+        _id: myID,
+      }
     })
   })
     .then(res => {
@@ -134,7 +145,13 @@ function getNewCard(obj) {
       return Promise.reject(`Ошибка: ${res.status}`);
     })
     .then((result) => {
-      console.log(result);
+      console.log(result); //здесь карточка приходит с id
+      console.log('отправили новую карточку на сервер');
+      cardList.prepend(createCard(result));
+    })
+    .then(() => {
+      getCards();
+      console.log('!!');
     })
     .catch((err) => {
       console.log(err);
@@ -222,5 +239,6 @@ export {
   getNewCard,
   deleteCard,
   putLike,
-  deleteLike
+  deleteLike,
+  getCards
 };

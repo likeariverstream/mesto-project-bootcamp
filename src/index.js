@@ -25,10 +25,14 @@ import {
   patchProfile,
   myID,
   initialCards,
+  getCards
 } from './components/api.js';
 
-submitForm();
 
 enableValidation();
 
+submitForm();
+
 getUserInfo();
+
+getCards();

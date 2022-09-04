@@ -10,7 +10,8 @@ import {
   myID,
   deleteCard,
   putLike,
-  deleteLike
+  deleteLike,
+  getCards
 } from './api.js';
 
 const cardTemplate = document.querySelector('#card').content;
@@ -42,6 +43,21 @@ function createCard(item) {
     likeButtonCardElement = cardElement.querySelector('.element__like-button'),
     deleteButtonCardElement = cardElement.querySelector('.element__delete-button'),
     likeCount = cardElement.querySelector('.element__like-count');
+    imageCardElement.src = item.link;
+    imageCardElement.alt = item.name;
+    titleCardElement.textContent = item.name;
+    likeCount.textContent = item.likes.length;
+    cardElement.id = item._id;
+    if (item.owner._id !== myID) {
+      deleteButtonCardElement.remove();
+    }
+    if (item.likes.length !== 0) {
+      for (let i = 0; i < item.likes.length; i++) {
+      if(item.likes[i]._id === myID) {
+        likeButtonCardElement.classList.add('element__like-button_active');
+      }
+      }
+    }
   cardElement.addEventListener('click', (evt) => {
     if (evt.target === likeButtonCardElement) {
       if (!likeButtonCardElement.classList.contains('element__like-button_active')) {
@@ -63,24 +79,14 @@ function createCard(item) {
     }
     if (evt.target === deleteButtonCardElement) {
       deleteButtonCardElement.parentNode.remove();
+      console.log(cardElement.id);
+
+      console.log(evt.target.parentNode.id);
       deleteCard(evt.target.parentNode.id);
     }
   });
-  imageCardElement.src = item.link;
-  imageCardElement.alt = item.name;
-  titleCardElement.textContent = item.name;
-  likeCount.textContent = item.likes.length;
-  cardElement.id = item._id;
-  if (item.owner._id !== myID) {
-    deleteButtonCardElement.remove();
-  }
-  if (item.likes.length !== 0) {
-    for (let i = 0; i < item.likes.length; i++) {
-    if(item.likes[i]._id === myID) {
-      likeButtonCardElement.classList.add('element__like-button_active');
-    }
-    }
-  }
+  // console.log(cardElement.id);
+  // console.log('Вставили новую карточку');
   return cardElement;
 }
 

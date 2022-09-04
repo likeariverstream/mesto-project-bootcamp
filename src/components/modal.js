@@ -38,7 +38,9 @@ import {
   patchProfile,
   patchAvatar,
   getNewCard,
-  myID
+  myID,
+  putLike,
+  getCards
 } from './api.js';
 
 function openPopup(popup) {
@@ -92,7 +94,7 @@ function closebByEscape(evt) {
   }
 }
 
-function submitForm() {
+function submitForm(cardId) {
   profileEditForm.addEventListener('submit', (evt) => {
     evt.preventDefault();
     profileName.textContent = inputFullName.value;
@@ -104,16 +106,19 @@ function submitForm() {
   addImageForm.addEventListener('submit', (evt) => {
     evt.preventDefault();
     let objCard = {
-      _id: '',
       link: addImageLinkInput.value,
       name: addImageNameInput.value,
       likes: [],
+      _id: cardId,
       owner: {
         _id: myID,
       }
     };
-    cardList.prepend(createCard(objCard));
     getNewCard(objCard);
+    getCards();
+    
+    console.log('вставили новую карточку в DOM');
+    console.log(objCard);
     loadCallback(evt);
     closePopup(cardPopup);
   });
