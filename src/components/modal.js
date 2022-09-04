@@ -36,6 +36,7 @@ import {
 
 import {
   patchProfile,
+  patchAvatar,
   getNewCard,
   myID
 } from './api.js';
@@ -120,7 +121,7 @@ function submitForm() {
     evt.preventDefault();
     console.log(avatarLinkInput.value);
     avatarImage.src = avatarLinkInput.value;
-    patchProfile();
+    patchAvatar();
     loadCallback(evt);
     closePopup(updateAvatarPopup);
   });

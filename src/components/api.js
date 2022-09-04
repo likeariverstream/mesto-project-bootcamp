@@ -63,7 +63,7 @@ function getUserInfo() {
 // меняем данные профиля при редактировании
 
 function patchProfile() {
-  fetch('https://nomoreparties.co/v1/wbc-cohort-1/users/me', {
+  return fetch('https://nomoreparties.co/v1/wbc-cohort-1/users/me', {
     method: 'PATCH',
     headers: {
       authorization: 'f69a8e1a-7b4c-4898-9f33-97539dca3c0c',
@@ -86,7 +86,10 @@ function patchProfile() {
     .catch((err) => {
       console.log(err);
     });
-  fetch('https://nomoreparties.co/v1/wbc-cohort-1/users/me/avatar', { // меняем аватар
+}
+
+function patchAvatar() {
+  return fetch('https://nomoreparties.co/v1/wbc-cohort-1/users/me/avatar', { // меняем аватар
     method: 'PATCH',
     headers: {
       authorization: 'f69a8e1a-7b4c-4898-9f33-97539dca3c0c',
@@ -112,7 +115,7 @@ function patchProfile() {
 
 // отправляем новую карточку на сервер
 function getNewCard(obj) {
-  fetch('https://nomoreparties.co/v1/wbc-cohort-1/cards', {
+  return fetch('https://nomoreparties.co/v1/wbc-cohort-1/cards', {
     method: 'POST',
     headers: {
       authorization: 'f69a8e1a-7b4c-4898-9f33-97539dca3c0c',
@@ -139,7 +142,7 @@ function getNewCard(obj) {
 }
 
 function putLike(cardId) {
-  fetch(`https://nomoreparties.co/v1/wbc-cohort-1/cards/likes/${cardId}`, {
+  return fetch(`https://nomoreparties.co/v1/wbc-cohort-1/cards/likes/${cardId}`, {
     method: 'PUT',
     headers: {
       authorization: 'f69a8e1a-7b4c-4898-9f33-97539dca3c0c',
@@ -163,7 +166,7 @@ function putLike(cardId) {
 }
 
 function deleteLike(cardId) {
-  fetch(`https://nomoreparties.co/v1/wbc-cohort-1/cards/likes/${cardId}`, {
+  return fetch(`https://nomoreparties.co/v1/wbc-cohort-1/cards/likes/${cardId}`, {
     method: 'DELETE',
     headers: {
       authorization: 'f69a8e1a-7b4c-4898-9f33-97539dca3c0c',
@@ -188,7 +191,7 @@ function deleteLike(cardId) {
 
 // удаляем карточку на сервере
 function deleteCard(cardId) {
-  fetch(`https://nomoreparties.co/v1/wbc-cohort-1/cards/${cardId}`, {
+  return fetch(`https://nomoreparties.co/v1/wbc-cohort-1/cards/${cardId}`, {
     method: 'DELETE',
     headers: {
       authorization: 'f69a8e1a-7b4c-4898-9f33-97539dca3c0c',
@@ -215,6 +218,7 @@ export {
   myID,
   getUserInfo,
   patchProfile,
+  patchAvatar,
   getNewCard,
   deleteCard,
   putLike,
