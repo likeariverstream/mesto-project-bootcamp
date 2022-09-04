@@ -27,12 +27,7 @@ import {
   initialCards,
 } from './components/api.js';
 
-
-// console.log(myID);
-
 submitForm();
-
-// getInitialCards();
 
 enableValidation();
 

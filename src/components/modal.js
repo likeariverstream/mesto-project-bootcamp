@@ -96,9 +96,8 @@ function submitForm() {
     evt.preventDefault();
     profileName.textContent = inputFullName.value;
     profileProfession.textContent = inputProfession.value;
-    // loadCallback();
     patchProfile();
-
+    loadCallback(evt);
     closePopup(profilePopup);
   });
   addImageForm.addEventListener('submit', (evt) => {
@@ -114,7 +113,7 @@ function submitForm() {
     };
     cardList.prepend(createCard(objCard));
     getNewCard(objCard);
-    
+    loadCallback(evt);
     closePopup(cardPopup);
   });
   updateAvatarForm.addEventListener('submit', (evt) => {
@@ -122,6 +121,7 @@ function submitForm() {
     console.log(avatarLinkInput.value);
     avatarImage.src = avatarLinkInput.value;
     patchProfile();
+    loadCallback(evt);
     closePopup(updateAvatarPopup);
   });
 }

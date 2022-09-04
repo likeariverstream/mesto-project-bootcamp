@@ -21,7 +21,6 @@ const imageCard = card.querySelector('.element__image');
 const titleCard = card.querySelector('.element__title');
 const imagePopupTitle = document.querySelector('.popup__title');
 
-
 function addInitialCards(arr) {
   Object.keys(arr).forEach((item) => {
     cardList.append(createCard(arr[item]));

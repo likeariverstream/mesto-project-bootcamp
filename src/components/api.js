@@ -26,7 +26,12 @@ function getUserInfo() {
       authorization: token
     }
   })
-    .then(res => res.json())
+    .then(res => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Ошибка: ${res.status}`);
+    })
     .then((result) => {
       profileName.textContent = result.name;
       profileProfession.textContent = result.about;
@@ -40,10 +45,17 @@ function getUserInfo() {
           authorization: 'f69a8e1a-7b4c-4898-9f33-97539dca3c0c'
         }
       })
-        .then(res => res.json())
+        .then(res => {
+          if (res.ok) {
+            return res.json();
+          }
+          return Promise.reject(`Ошибка: ${res.status}`);
+        })
         .then((result) => {
-          console.log(result);
           addInitialCards(result);
+        })
+        .catch((err) => {
+          console.log(err);
         });
     });
 }
@@ -62,11 +74,19 @@ function patchProfile() {
       about: profileProfession.textContent,
     })
   })
-    .then(res => res.json())
+    .then(res => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Ошибка: ${res.status}`);
+    })
     .then((result) => {
       console.log(result);
+    })
+    .catch((err) => {
+      console.log(err);
     });
-    fetch('https://nomoreparties.co/v1/wbc-cohort-1/users/me/avatar', {
+  fetch('https://nomoreparties.co/v1/wbc-cohort-1/users/me/avatar', { // меняем аватар
     method: 'PATCH',
     headers: {
       authorization: 'f69a8e1a-7b4c-4898-9f33-97539dca3c0c',
@@ -76,9 +96,17 @@ function patchProfile() {
       avatar: avatarImage.src,
     })
   })
-    .then(res => res.json())
+    .then(res => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Ошибка: ${res.status}`);
+    })
     .then((result) => {
       console.log(result);
+    })
+    .catch((err) => {
+      console.log(err);
     });
 }
 
@@ -96,9 +124,17 @@ function getNewCard(obj) {
       likes: obj.likes.length
     })
   })
-    .then(res => res.json())
+    .then(res => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Ошибка: ${res.status}`);
+    })
     .then((result) => {
       console.log(result);
+    })
+    .catch((err) => {
+      console.log(err);
     });
 }
 
@@ -112,9 +148,17 @@ function putLike(cardId) {
     body: JSON.stringify({
     })
   })
-    .then(res => res.json())
+    .then(res => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Ошибка: ${res.status}`);
+    })
     .then((result) => {
       console.log(result);
+    })
+    .catch((err) => {
+      console.log(err);
     });
 }
 
@@ -128,9 +172,17 @@ function deleteLike(cardId) {
     body: JSON.stringify({
     })
   })
-    .then(res => res.json())
+    .then(res => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Ошибка: ${res.status}`);
+    })
     .then((result) => {
       console.log(result);
+    })
+    .catch((err) => {
+      console.log(err);
     });
 }
 
@@ -145,9 +197,17 @@ function deleteCard(cardId) {
     body: JSON.stringify({
     })
   })
-    .then(res => res.json())
+    .then(res => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Ошибка: ${res.status}`);
+    })
     .then((result) => {
       console.log(result);
+    })
+    .catch((err) => {
+      console.log(err); // выводим ошибку в консоль
     });
 }
 
@@ -159,6 +219,4 @@ export {
   deleteCard,
   putLike,
   deleteLike
-  // patchLikes
-  // initialCards
 };

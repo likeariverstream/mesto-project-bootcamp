@@ -1,3 +1,4 @@
+'use strict';
 
 const selectors = {
   formSelector: '.popup__form',
@@ -11,13 +12,16 @@ const selectors = {
 const allInputs = document.querySelectorAll(selectors.inputSelector);
 const allForms = document.querySelectorAll(selectors.formSelector);
 const allSaveButtons = document.querySelectorAll(selectors.submitButtonSelector);
+const saveButton = document.querySelector(selectors.submitButtonSelector);
+console.dir(saveButton);
 
-function loadCallback() {
-  allSaveButtons.forEach((item) => {
+function loadCallback(evt) {
+  const item = evt.target.querySelector(selectors.submitButtonSelector);
+  if (!evt.onload) {
     item.textContent = 'Сохранение...';
-  });
+  }
+    item.textContent = 'Сохранить';
 }
-
 
 function disableSaveButton() {
   allSaveButtons.forEach((item) => {
