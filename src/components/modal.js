@@ -31,17 +31,28 @@ import {
   cardList,
   imageCard,
   titleCard,
-  createCard
+  createCard,
+  addInitialCards
 } from './card.js';
 
 import {
   patchProfile,
   patchAvatar,
   getNewCard,
-  myID,
   putLike,
-  getCards
+  getCards,
+  checkResponse,
+  checkError,
+  checkResult,
 } from './api.js';
+
+import {
+  myId
+} from '../index.js';
+
+function prependNewCard(result) {
+  cardList.prepend(createCard(result));
+}
 
 function openPopup(popup) {
   disableSaveButton();
@@ -97,36 +108,45 @@ function closebByEscape(evt) {
 function submitForm(cardId) {
   profileEditForm.addEventListener('submit', (evt) => {
     evt.preventDefault();
-    profileName.textContent = inputFullName.value;
-    profileProfession.textContent = inputProfession.value;
-    patchProfile();
+    const name = profileName.textContent = inputFullName.value;
+    const about =  profileProfession.textContent = inputProfession.value;
+    patchProfile(name, about)
+      .then(checkResponse)
+      .then(checkResult)
+      .catch(checkError);
     loadCallback(evt);
     closePopup(profilePopup);
   });
   addImageForm.addEventListener('submit', (evt) => {
     evt.preventDefault();
     let objCard = {
-      link: addImageLinkInput.value,
       name: addImageNameInput.value,
+      link: addImageLinkInput.value,
       likes: [],
       _id: cardId,
       owner: {
-        _id: myID,
+        _id: myId,
       }
     };
-    getNewCard(objCard);
-    getCards();
-    
-    console.log('вставили новую карточку в DOM');
-    console.log(objCard);
+    getNewCard(objCard)
+      .then(checkResponse)
+      .then(prependNewCard)
+      .then(getCards)
+      .catch(checkError);
+    getCards()
+      .then(checkResponse)
+      .then(addInitialCards)
+      .catch(checkError);
     loadCallback(evt);
     closePopup(cardPopup);
   });
   updateAvatarForm.addEventListener('submit', (evt) => {
     evt.preventDefault();
-    console.log(avatarLinkInput.value);
-    avatarImage.src = avatarLinkInput.value;
-    patchAvatar();
+    const input = avatarImage.src = avatarLinkInput.value;
+    patchAvatar(input)
+      .then(checkResponse)
+      .then(checkResult)
+      .catch(checkError);
     loadCallback(evt);
     closePopup(updateAvatarPopup);
   });

@@ -1,238 +1,105 @@
 'use strict';
 
-import {
-  addInitialCards,
-  createCard,
-  cardList,
-  deleteButtons
-} from './card.js';
+const config = {
+  baseUrl: 'https://nomoreparties.co/v1/wbc-cohort-1',
+  headers: {
+    authorization: 'f69a8e1a-7b4c-4898-9f33-97539dca3c0c',
+    'Content-Type': 'application/json'
+  }
+};
 
-import {
-  profileName,
-  profileProfession,
-  addImageNameInput,
-  addImageLinkInput,
-  avatarImage,
-  submitForm
-} from './modal';
+function checkResponse(res) {
+  if (res.ok) {
+    return res.json();
+  }
+  return Promise.reject(`Ошибка: ${res.status}`);
+}
 
-// получаем данные пользователя и массив карточек с сервера
-const url = 'https://nomoreparties.co/v1/wbc-cohort-1/users/me',
-  token = 'f69a8e1a-7b4c-4898-9f33-97539dca3c0c',
-  myID = 'deabbb0f24329babe7d5d647';
+function checkResult(result) {
+  console.log(result);
+}
+
+function checkError(err) {
+  console.log(err);
+}
 
 function getUserInfo() {
-  return fetch(url, {
-    headers: {
-      authorization: token
-    }
-  })
-    .then(res => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Ошибка: ${res.status}`);
-    })
-    .then((result) => {
-      profileName.textContent = result.name;
-      profileProfession.textContent = result.about;
-      const myID = result._id; // это const моего id
-      avatarImage.src = result.avatar;
-      return myID;
-    });
+  return fetch(`${config.baseUrl}/users/me`, {
+    headers: config.headers
+  });
 }
 
 function getCards() { // получаем массив карточек с сервера
-  return fetch('https://nomoreparties.co/v1/wbc-cohort-1/cards ', {
-    headers: {
-      authorization: 'f69a8e1a-7b4c-4898-9f33-97539dca3c0c'
-    }
-  })
-    .then(res => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Ошибка: ${res.status}`);
-    })
-    .then((result) => {
-      addInitialCards(result);
-  
-      // console.log(result);
-      // console.log('получили массив карточек с сервера');
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+  return fetch(`${config.baseUrl}/cards`, {
+    headers: config.headers
+  });
 }
-
-console.log(getCards());
 
 // меняем данные профиля при редактировании
 
-function patchProfile() {
-  return fetch('https://nomoreparties.co/v1/wbc-cohort-1/users/me', {
+function patchProfile(name, about) {
+  return fetch(`${config.baseUrl}/users/me`, {
     method: 'PATCH',
-    headers: {
-      authorization: 'f69a8e1a-7b4c-4898-9f33-97539dca3c0c',
-      'Content-Type': 'application/json'
-    },
+    headers: config.headers,
     body: JSON.stringify({
-      name: profileName.textContent,
-      about: profileProfession.textContent,
+      name,
+      about
     })
-  })
-    .then(res => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Ошибка: ${res.status}`);
-    })
-    .then((result) => {
-      console.log(result);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+  });
 }
 
-function patchAvatar() {
-  return fetch('https://nomoreparties.co/v1/wbc-cohort-1/users/me/avatar', { // меняем аватар
+function patchAvatar(link) {
+  return fetch(`${config.baseUrl}/users/me/avatar`, { // меняем аватар
     method: 'PATCH',
-    headers: {
-      authorization: 'f69a8e1a-7b4c-4898-9f33-97539dca3c0c',
-      'Content-Type': 'application/json'
-    },
+    headers: config.headers,
     body: JSON.stringify({
-      avatar: avatarImage.src,
+      avatar: link
     })
-  })
-    .then(res => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Ошибка: ${res.status}`);
-    })
-    .then((result) => {
-      console.log(result);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+  });
 }
 
 // отправляем новую карточку на сервер
 function getNewCard(obj) {
-  return fetch('https://nomoreparties.co/v1/wbc-cohort-1/cards', {
+  return fetch(`${config.baseUrl}/cards`, {
     method: 'POST',
-    headers: {
-      authorization: 'f69a8e1a-7b4c-4898-9f33-97539dca3c0c',
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      name: addImageNameInput.value,
-      link: addImageLinkInput.value,
-      likes: obj.likes.length,
-      _id: '',
-      owner: {
-        _id: myID,
-      }
-    })
-  })
-    .then(res => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Ошибка: ${res.status}`);
-    })
-    .then((result) => {
-      console.log(result); //здесь карточка приходит с id
-      console.log('отправили новую карточку на сервер');
-      cardList.prepend(createCard(result));
-    })
-    .then(() => {
-      getCards();
-      console.log('!!');
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+    headers: config.headers,
+    body: JSON.stringify(obj)
+  });
 }
 
 function putLike(cardId) {
-  return fetch(`https://nomoreparties.co/v1/wbc-cohort-1/cards/likes/${cardId}`, {
+  return fetch(`${config.baseUrl}/cards/likes/${cardId}`, {
     method: 'PUT',
-    headers: {
-      authorization: 'f69a8e1a-7b4c-4898-9f33-97539dca3c0c',
-      'Content-Type': 'application/json'
-    },
+    headers: config.headers,
     body: JSON.stringify({
     })
   })
-    .then(res => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Ошибка: ${res.status}`);
-    })
-    .then((result) => {
-      console.log(result);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+    .then(checkResponse)
+    .then(checkResult)
+    .catch(checkError);
 }
 
 function deleteLike(cardId) {
-  return fetch(`https://nomoreparties.co/v1/wbc-cohort-1/cards/likes/${cardId}`, {
+  return fetch(`${config.baseUrl}/cards/likes/${cardId}`, {
     method: 'DELETE',
-    headers: {
-      authorization: 'f69a8e1a-7b4c-4898-9f33-97539dca3c0c',
-      'Content-Type': 'application/json'
-    },
+    headers: config.headers,
     body: JSON.stringify({
     })
-  })
-    .then(res => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Ошибка: ${res.status}`);
-    })
-    .then((result) => {
-      console.log(result);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+  });
 }
 
 // удаляем карточку на сервере
 function deleteCard(cardId) {
-  return fetch(`https://nomoreparties.co/v1/wbc-cohort-1/cards/${cardId}`, {
+  return fetch(`${config.baseUrl}/cards/${cardId}`, {
     method: 'DELETE',
-    headers: {
-      authorization: 'f69a8e1a-7b4c-4898-9f33-97539dca3c0c',
-      'Content-Type': 'application/json'
-    },
+    headers: config.headers,
     body: JSON.stringify({
     })
-  })
-    .then(res => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Ошибка: ${res.status}`);
-    })
-    .then((result) => {
-      console.log(result);
-    })
-    .catch((err) => {
-      console.log(err); // выводим ошибку в консоль
-    });
+  });
 }
 
 export {
-  myID,
+  // myID,
   getUserInfo,
   patchProfile,
   patchAvatar,
@@ -240,5 +107,9 @@ export {
   deleteCard,
   putLike,
   deleteLike,
-  getCards
+  getCards,
+  checkResponse,
+  checkResult,
+  checkError,
+  config
 };

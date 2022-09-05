@@ -12,8 +12,6 @@ const selectors = {
 const allInputs = document.querySelectorAll(selectors.inputSelector);
 const allForms = document.querySelectorAll(selectors.formSelector);
 const allSaveButtons = document.querySelectorAll(selectors.submitButtonSelector);
-const saveButton = document.querySelector(selectors.submitButtonSelector);
-console.dir(saveButton);
 
 function loadCallback(evt) {
   const item = evt.target.querySelector(selectors.submitButtonSelector);
