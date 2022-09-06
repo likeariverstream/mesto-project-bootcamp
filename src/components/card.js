@@ -7,19 +7,25 @@ import {
 
 import {
   getNewCard,
-
   deleteCard,
   putLike,
   deleteLike,
-  getCards,
-  checkError,
-  checkResponse,
-  checkResult
+  getCards
 } from './api.js';
 
 import {
   myId
 } from '../index.js';
+
+import {
+  selectors
+} from './validate.js';
+
+import {
+  checkResponse,
+  checkResult,
+  checkError,
+} from './utils.js';
 
 const cardTemplate = document.querySelector('#card').content;
 const cardList = document.querySelector('.elements');
@@ -50,37 +56,37 @@ function createCard(item) {
     likeButtonCardElement = cardElement.querySelector('.element__like-button'),
     deleteButtonCardElement = cardElement.querySelector('.element__delete-button'),
     likeCount = cardElement.querySelector('.element__like-count');
-  imageCardElement.src = item.link;
-  imageCardElement.alt = item.name;
-  titleCardElement.textContent = item.name;
-  likeCount.textContent = item.likes.length;
-  cardElement.id = item._id;
+
   if (item.owner._id !== myId) {
     deleteButtonCardElement.remove();
   }
   if (item.likes.length !== 0) {
     for (let i = 0; i < item.likes.length; i++) {
       if (item.likes[i]._id === myId) {
-        likeButtonCardElement.classList.add('element__like-button_active');
+        likeButtonCardElement.classList.add(selectors.activeLikeClass);
       }
     }
   }
   cardElement.addEventListener('click', (evt) => {
     if (evt.target === likeButtonCardElement) {
-      if (!likeButtonCardElement.classList.contains('element__like-button_active')) {
-        likeButtonCardElement.classList.add('element__like-button_active');
-        likeCount.textContent = `${+likeCount.textContent + 1}`;
+      if (!likeButtonCardElement.classList.contains(selectors.activeLikeClass)) {
         putLike(evt.target.parentNode.parentNode.parentNode.id)
           .then(checkResponse)
-          .then(checkResult)
+          .then((result) => {
+            console.log(result.likes.length);
+            likeCount.textContent = result.likes.length;
+            likeButtonCardElement.classList.add(selectors.activeLikeClass);
+          })
           .catch(checkError);
       }
       else {
-        likeButtonCardElement.classList.remove('element__like-button_active');
-        likeCount.textContent = `${+likeCount.textContent - 1}`;
         deleteLike(evt.target.parentNode.parentNode.parentNode.id)
           .then(checkResponse)
-          .then(checkResult)
+          .then((result) => {
+            console.log(result.likes.length);
+            likeButtonCardElement.classList.remove(selectors.activeLikeClass);
+            likeCount.textContent = result.likes.length;
+          })
           .catch(checkError);
       }
     }
@@ -91,10 +97,20 @@ function createCard(item) {
       openPopup(imagePopup);
     }
     if (evt.target === deleteButtonCardElement) {
-      deleteButtonCardElement.parentNode.remove();
-      deleteCard(evt.target.parentNode.id);
+      deleteCard(evt.target.parentNode.id)
+        .then(checkResponse)
+        .then(checkResult)
+        .then(() => {
+          deleteButtonCardElement.parentNode.remove();
+        })
+        .catch(checkError);
     }
   });
+  imageCardElement.src = item.link;
+  imageCardElement.alt = item.name;
+  titleCardElement.textContent = item.name;
+  likeCount.textContent = item.likes.length;
+  cardElement.id = item._id;
   return cardElement;
 }
 

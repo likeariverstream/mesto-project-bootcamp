@@ -8,21 +8,6 @@ const config = {
   }
 };
 
-function checkResponse(res) {
-  if (res.ok) {
-    return res.json();
-  }
-  return Promise.reject(`Ошибка: ${res.status}`);
-}
-
-function checkResult(result) {
-  console.log(result);
-}
-
-function checkError(err) {
-  console.log(err);
-}
-
 function getUserInfo() {
   return fetch(`${config.baseUrl}/users/me`, {
     headers: config.headers
@@ -73,10 +58,7 @@ function putLike(cardId) {
     headers: config.headers,
     body: JSON.stringify({
     })
-  })
-    .then(checkResponse)
-    .then(checkResult)
-    .catch(checkError);
+  });
 }
 
 function deleteLike(cardId) {
@@ -99,7 +81,6 @@ function deleteCard(cardId) {
 }
 
 export {
-  // myID,
   getUserInfo,
   patchProfile,
   patchAvatar,
@@ -108,8 +89,5 @@ export {
   putLike,
   deleteLike,
   getCards,
-  checkResponse,
-  checkResult,
-  checkError,
   config
 };

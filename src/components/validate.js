@@ -6,19 +6,24 @@ const selectors = {
   submitButtonSelector: '.popup__button-save',
   inactiveButtonClass: 'popup__button-save_disabled',
   inputErrorClass: 'popup__input_error',
-  errorClass: 'popup__span-error_active'
+  errorClass: 'popup__span-error_active',
+  activeLikeClass: 'element__like-button_active' //
 };
 
 const allInputs = document.querySelectorAll(selectors.inputSelector);
 const allForms = document.querySelectorAll(selectors.formSelector);
 const allSaveButtons = document.querySelectorAll(selectors.submitButtonSelector);
 
-function loadCallback(evt) {
-  const item = evt.target.querySelector(selectors.submitButtonSelector);
-  if (!evt.onload) {
-    item.textContent = 'Сохранение...';
-  }
-    item.textContent = 'Сохранить';
+function waitSaving(event) {
+  const item = event.target.querySelector(selectors.submitButtonSelector);
+  item.textContent = 'Сохранение...';
+  item.disabled = true;
+}
+
+function loadCallback(event) {
+  const item = event.target.querySelector(selectors.submitButtonSelector);
+  item.textContent = 'Сохранить';
+  item.disabled = false;
 }
 
 function disableSaveButton() {
@@ -80,5 +85,6 @@ export {
   disableSaveButton,
   hideError,
   enableValidation,
+  waitSaving,
   loadCallback
 };

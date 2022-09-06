@@ -26,14 +26,17 @@ import {
 
 import {
   getUserInfo,
-  checkResponse,
-  checkResult,
-  checkError,
+
   getInitialCards,
   patchProfile,
   getCards,
   config
 } from './components/api.js';
+
+import {
+  checkResponse,
+  checkError
+} from './components/utils.js';
 
 let myId;
 function getUserInfoResult(result) {
@@ -47,16 +50,10 @@ enableValidation();
 
 submitForm();
 
-getUserInfo()
-  .then(checkResponse)
-  .then(getUserInfoResult)
+Promise.all([getUserInfo().then(checkResponse).then(getUserInfoResult),
+getCards().then(checkResponse).then(addInitialCards)])
   .catch(checkError);
 
-getCards()
-  .then(checkResponse)
-  .then(addInitialCards)
-  .catch(checkError);
-
-export {
+  export {
   myId
 };

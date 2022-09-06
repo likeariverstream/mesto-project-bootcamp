@@ -24,6 +24,7 @@ import {
   disableSaveButton,
   hideError,
   selectors,
+  waitSaving,
   loadCallback
 } from './validate.js';
 
@@ -40,15 +41,18 @@ import {
   patchAvatar,
   getNewCard,
   putLike,
-  getCards,
-  checkResponse,
-  checkError,
-  checkResult,
+  getCards
 } from './api.js';
 
 import {
   myId
 } from '../index.js';
+
+import {
+  checkResponse,
+  checkResult,
+  checkError,
+} from './utils.js';
 
 function prependNewCard(result) {
   cardList.prepend(createCard(result));
@@ -109,16 +113,18 @@ function submitForm(cardId) {
   profileEditForm.addEventListener('submit', (evt) => {
     evt.preventDefault();
     const name = profileName.textContent = inputFullName.value;
-    const about =  profileProfession.textContent = inputProfession.value;
+    const about = profileProfession.textContent = inputProfession.value;
+    waitSaving(evt);
     patchProfile(name, about)
       .then(checkResponse)
       .then(checkResult)
-      .catch(checkError);
-    loadCallback(evt);
+      .catch(checkError)
+      .finally(() => loadCallback(evt));
     closePopup(profilePopup);
   });
   addImageForm.addEventListener('submit', (evt) => {
     evt.preventDefault();
+    
     let objCard = {
       name: addImageNameInput.value,
       link: addImageLinkInput.value,
@@ -128,6 +134,7 @@ function submitForm(cardId) {
         _id: myId,
       }
     };
+    waitSaving(evt);
     getNewCard(objCard)
       .then(checkResponse)
       .then(prependNewCard)
@@ -136,18 +143,19 @@ function submitForm(cardId) {
     getCards()
       .then(checkResponse)
       .then(addInitialCards)
-      .catch(checkError);
-    loadCallback(evt);
+      .catch(checkError)
+      .finally(() => loadCallback(evt));
     closePopup(cardPopup);
   });
   updateAvatarForm.addEventListener('submit', (evt) => {
     evt.preventDefault();
     const input = avatarImage.src = avatarLinkInput.value;
+    waitSaving(evt);
     patchAvatar(input)
       .then(checkResponse)
       .then(checkResult)
-      .catch(checkError);
-    loadCallback(evt);
+      .catch(checkError)
+      .finally(() => loadCallback(evt));
     closePopup(updateAvatarPopup);
   });
 }
