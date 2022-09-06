@@ -17,6 +17,8 @@ const updateAvatarPopup = document.querySelector('.popup__update-avatar');
 const avatarImage = document.querySelector('.profile__avatar-image');
 const updateAvatarForm = document.querySelector('form[name="update-avatar-form"]');
 const avatarLinkInput = document.querySelector('input[name="avatar-link"]');
+const deleteCardForm = document.querySelector('form[name="delete-card-form"]');
+const deleteCardPopup = document.querySelector('.popup__delete-card');
 
 import {
   allForms,
@@ -41,7 +43,8 @@ import {
   patchAvatar,
   getNewCard,
   putLike,
-  getCards
+  getCards,
+  deleteCard
 } from './api.js';
 
 import {
@@ -59,7 +62,7 @@ function prependNewCard(result) {
 }
 
 function openPopup(popup) {
-  disableSaveButton();
+  disableSaveButton(popup);
   setEventListeners(popup);
   popup.classList.add('popup_opened');
 }
@@ -124,7 +127,6 @@ function submitForm(cardId) {
   });
   addImageForm.addEventListener('submit', (evt) => {
     evt.preventDefault();
-    
     let objCard = {
       name: addImageNameInput.value,
       link: addImageLinkInput.value,
@@ -158,6 +160,17 @@ function submitForm(cardId) {
       .finally(() => loadCallback(evt));
     closePopup(updateAvatarPopup);
   });
+  deleteCardForm.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+    deleteCard(cardId)
+      .then(checkResponse)
+      .then(checkResult)
+      .then(() => {
+        document.getElementById(cardId).remove();
+      })
+      .catch(checkError);
+    closePopup(deleteCardPopup);
+  });
 }
 
 export {
@@ -173,5 +186,6 @@ export {
   openPopup,
   closePopup,
   setEventListeners,
-  submitForm
+  submitForm,
+  deleteCardPopup
 };

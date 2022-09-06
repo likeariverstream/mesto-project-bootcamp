@@ -15,7 +15,8 @@
     </header>
     <main class="content">
       <section class="profile">
-        <div class="profile__avatar"><img class="profile__avatar-image" src="<%=require('./images/image_avatar.jpg')%>" alt="Аватар"></div>
+        <div class="profile__avatar"><img class="profile__avatar-image" src="<%=require('./images/image_avatar.jpg')%>"
+            alt="Аватар"></div>
         <div class="profile__info">
           <div class="profile__caption">
             <h1 class="profile__title">Жак-Ив Кусто</h1>
@@ -82,12 +83,23 @@
           <h2 class="popup__legend">Обновить аватар</h2>
           <input class="popup__input" type="url" name="avatar-link" placeholder="Ссылка на картинку" required>
           <span class="popup__span-error">Введите адрес сайта.</span>
-          <button class="popup__button-save popup__button-save_update-avatar" type="submit" aria-label="Сохранить">Сохранить</button>
+          <button class="popup__button-save popup__button-save_update-avatar" type="submit"
+            aria-label="Сохранить">Сохранить</button>
         </fieldset>
       </form>
     </div>
   </div>
-  
+  <div class="popup popup__delete-card">
+    <div class="popup__container">
+      <button class="popup__button-close" type="button" aria-label="Закрыть"></button>
+      <form class="popup__form" name="delete-card-form" method="post" autocomplete="off">
+        <fieldset class="popup__fieldset popup__fieldset_delete-card">
+          <h2 class="popup__legend popup__legend_delete-card">Вы уверены?</h2>
+          <button class="popup__button-save" type="submit" aria-label="Сохранить">Да</button>
+        </fieldset>
+      </form>
+    </div>
+  </div>
 
   <template id="card">
     <li class="element">

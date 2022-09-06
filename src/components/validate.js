@@ -7,7 +7,7 @@ const selectors = {
   inactiveButtonClass: 'popup__button-save_disabled',
   inputErrorClass: 'popup__input_error',
   errorClass: 'popup__span-error_active',
-  activeLikeClass: 'element__like-button_active' //
+  activeLikeClass: 'element__like-button_active' 
 };
 
 const allInputs = document.querySelectorAll(selectors.inputSelector);
@@ -26,11 +26,12 @@ function loadCallback(event) {
   item.disabled = false;
 }
 
-function disableSaveButton() {
-  allSaveButtons.forEach((item) => {
-    item.classList.add(selectors.inactiveButtonClass);
-    item.disabled = true;
-  });
+function disableSaveButton(popup) {
+  if (popup.querySelector(selectors.inputSelector)) {
+    const button = popup.querySelector(selectors.submitButtonSelector);
+    button.classList.add(selectors.inactiveButtonClass);
+    button.disabled = true;
+  }
 }
 
 function hideError(item) {

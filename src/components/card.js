@@ -2,7 +2,9 @@
 
 import {
   openPopup,
-  imagePopup
+  imagePopup,
+  submitForm,
+  deleteCardPopup
 } from './modal';
 
 import {
@@ -97,13 +99,10 @@ function createCard(item) {
       openPopup(imagePopup);
     }
     if (evt.target === deleteButtonCardElement) {
-      deleteCard(evt.target.parentNode.id)
-        .then(checkResponse)
-        .then(checkResult)
-        .then(() => {
-          deleteButtonCardElement.parentNode.remove();
-        })
-        .catch(checkError);
+      const cardId = evt.target.parentNode.id;
+      console.log(cardId);
+      openPopup(deleteCardPopup);
+      submitForm(item._id);
     }
   });
   imageCardElement.src = item.link;

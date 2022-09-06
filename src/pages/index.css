@@ -44,3 +44,6 @@
 @import url(../blocks/popup/__update-avatar/popup__update-avatar.css);
 @import url(../blocks/popup/__button-save/_update-avatar/popup__button-save_update-avatar.css);
 @import url(../blocks/popup/__fieldset/_update-avatar/popup__fieldset_update-avatar.css);
+@import url(../blocks/popup/__delete-card/popup__delete-card.css);
+@import url(../blocks/popup/__legend/_delete-card/popup__legend_delete-card.css);
+@import url(../blocks/popup/__fieldset/_delete-card/popup__fieldset_delete-card.css);
