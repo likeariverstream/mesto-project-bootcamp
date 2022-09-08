@@ -7,28 +7,18 @@ const selectors = {
   inactiveButtonClass: 'popup__button-save_disabled',
   inputErrorClass: 'popup__input_error',
   errorClass: 'popup__span-error_active',
-  activeLikeClass: 'element__like-button_active' 
+  activeLikeClass: 'element__like-button_active',
+  buttonClose: 'popup__button-close',
+  popupSelector: 'popup',
 };
 
-const allInputs = document.querySelectorAll(selectors.inputSelector);
-const allForms = document.querySelectorAll(selectors.formSelector);
-const allSaveButtons = document.querySelectorAll(selectors.submitButtonSelector);
-
-function waitSaving(event) {
-  const item = event.target.querySelector(selectors.submitButtonSelector);
-  item.textContent = 'Сохранение...';
-  item.disabled = true;
-}
-
-function loadCallback(event) {
-  const item = event.target.querySelector(selectors.submitButtonSelector);
-  item.textContent = 'Сохранить';
-  item.disabled = false;
-}
+const inputList = document.querySelectorAll(selectors.inputSelector);
+const formList = document.querySelectorAll(selectors.formSelector);
 
 function disableSaveButton(popup) {
-  if (popup.querySelector(selectors.inputSelector)) {
-    const button = popup.querySelector(selectors.submitButtonSelector);
+  const form = popup.querySelector(selectors.formSelector);
+  const button = popup.querySelector(selectors.submitButtonSelector);
+  if (popup.querySelector(selectors.inputSelector) && !form.checkValidity()) {
     button.classList.add(selectors.inactiveButtonClass);
     button.disabled = true;
   }
@@ -45,7 +35,7 @@ function showError(item) {
 }
 
 function hasInvalid() {
-  allInputs.forEach((item) => {
+  inputList.forEach((item) => {
     item.addEventListener('input', (evt) => {
       if (!evt.target.validity.valid) {
         showError(evt.target);
@@ -58,34 +48,34 @@ function hasInvalid() {
 }
 
 function toggleSaveButton() {
-  allForms.forEach((item) => {
+  formList.forEach((item) => {
     item.addEventListener('input', (evt) => {
       const targetForm = evt.target.form;
+      const button = targetForm.querySelector(selectors.submitButtonSelector);
       const isValid = targetForm.checkValidity();
       if (!isValid) {
-        targetForm.querySelector(selectors.submitButtonSelector).classList.add(selectors.inactiveButtonClass);
-        targetForm.querySelector(selectors.submitButtonSelector).disabled = !isValid;
+        button.classList.add(selectors.inactiveButtonClass);
+        button.disabled = !isValid;
       }
       else {
-        targetForm.querySelector(selectors.submitButtonSelector).classList.remove(selectors.inactiveButtonClass);
-        targetForm.querySelector(selectors.submitButtonSelector).disabled = !isValid;
+        button.classList.remove(selectors.inactiveButtonClass);
+        button.disabled = !isValid;
       }
     });
   });
 }
 
-function enableValidation() {
+function enableValidation(settings) {
+
   hasInvalid();
-  toggleSaveButton();
+  toggleSaveButton(settings);
 }
 
 export {
   selectors,
-  allInputs,
-  allForms,
+  inputList,
+  formList,
   disableSaveButton,
   hideError,
   enableValidation,
-  waitSaving,
-  loadCallback
 };

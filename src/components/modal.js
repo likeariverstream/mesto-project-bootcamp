@@ -19,32 +19,23 @@ const updateAvatarForm = document.querySelector('form[name="update-avatar-form"]
 const avatarLinkInput = document.querySelector('input[name="avatar-link"]');
 const deleteCardForm = document.querySelector('form[name="delete-card-form"]');
 const deleteCardPopup = document.querySelector('.popup__delete-card');
+const popups = document.querySelectorAll('.popup');
 
 import {
-  allForms,
-  allInputs,
   disableSaveButton,
-  hideError,
   selectors,
-  waitSaving,
-  loadCallback
 } from './validate.js';
 
 import {
   cardList,
-  imageCard,
-  titleCard,
   createCard,
-  addInitialCards
 } from './card.js';
 
 import {
   patchProfile,
   patchAvatar,
   getNewCard,
-  putLike,
-  getCards,
-  deleteCard
+
 } from './api.js';
 
 import {
@@ -52,9 +43,9 @@ import {
 } from '../index.js';
 
 import {
-  checkResponse,
-  checkResult,
   checkError,
+  waitSaving,
+  loadCallback
 } from './utils.js';
 
 function prependNewCard(result) {
@@ -63,19 +54,13 @@ function prependNewCard(result) {
 
 function openPopup(popup) {
   disableSaveButton(popup);
-  setEventListeners(popup);
   popup.classList.add('popup_opened');
+  document.addEventListener('keydown', closebByEscape);
 }
 
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
   document.removeEventListener('keydown', closebByEscape);
-  allForms.forEach((item) => {
-    item.reset();
-  });
-  allInputs.forEach((item) => {
-    hideError(item);
-  });
 }
 
 avatarImage.addEventListener('click', () => {
@@ -86,23 +71,28 @@ profileEditButton.addEventListener('click', () => {
   openPopup(profilePopup);
   inputFullName.value = profileName.textContent;
   inputProfession.value = profileProfession.textContent;
+  if (profileEditForm.checkValidity()) {
+    const button = profileEditForm.querySelector(selectors.submitButtonSelector);
+    button.disabled = false;
+    button.focus();
+  }
 });
 
 addCardButton.addEventListener('click', () => {
   openPopup(cardPopup);
 });
 
-function setEventListeners(popup) {
-  const closeButton = popup.querySelector('.popup__button-close');
-  popup.addEventListener('mousedown', (evt) => {
-    if (evt.target === closeButton) {
-      closePopup(popup);
-    }
-    if (evt.target === popup) {
-      closePopup(popup);
-    }
+function setEventListeners() {
+  popups.forEach((popup) => {
+    popup.addEventListener('mousedown', (evt) => {
+      if (evt.target.classList.contains(selectors.popupSelector)) {
+        closePopup(popup);
+      }
+      if (evt.target.classList.contains(selectors.buttonClose)) {
+        closePopup(popup);
+      }
+    });
   });
-  document.addEventListener('keydown', closebByEscape);
 }
 
 function closebByEscape(evt) {
@@ -112,64 +102,56 @@ function closebByEscape(evt) {
   }
 }
 
-function submitForm(cardId) {
+function setSubmitHanlers() {
   profileEditForm.addEventListener('submit', (evt) => {
     evt.preventDefault();
-    const name = profileName.textContent = inputFullName.value;
-    const about = profileProfession.textContent = inputProfession.value;
     waitSaving(evt);
+    const name = inputFullName.value;
+    const about = inputProfession.value;
     patchProfile(name, about)
-      .then(checkResponse)
-      .then(checkResult)
+      .then(() => {
+        profileName.textContent = name;
+        profileProfession.textContent = about;
+      })
+      .then(() => {
+        closePopup(profilePopup);
+      })
       .catch(checkError)
       .finally(() => loadCallback(evt));
-    closePopup(profilePopup);
   });
   addImageForm.addEventListener('submit', (evt) => {
     evt.preventDefault();
-    let objCard = {
+    const objCard = {
       name: addImageNameInput.value,
       link: addImageLinkInput.value,
       likes: [],
-      _id: cardId,
       owner: {
         _id: myId,
-      }
+      },
     };
     waitSaving(evt);
     getNewCard(objCard)
-      .then(checkResponse)
-      .then(prependNewCard)
-      .then(getCards)
-      .catch(checkError);
-    getCards()
-      .then(checkResponse)
-      .then(addInitialCards)
+      .then((result) => {
+        objCard._id = result._id;
+        prependNewCard(objCard);
+      })
+      .then(() => {
+        closePopup(cardPopup);
+      })
       .catch(checkError)
       .finally(() => loadCallback(evt));
-    closePopup(cardPopup);
   });
   updateAvatarForm.addEventListener('submit', (evt) => {
     evt.preventDefault();
-    const input = avatarImage.src = avatarLinkInput.value;
+    const input = avatarLinkInput.value;
     waitSaving(evt);
     patchAvatar(input)
-      .then(checkResponse)
-      .then(checkResult)
+      .then(() => {
+        avatarImage.src = input;
+      })
+      .then(closePopup(updateAvatarPopup))
       .catch(checkError)
       .finally(() => loadCallback(evt));
-    closePopup(updateAvatarPopup);
-  });
-  deleteCardForm.addEventListener('submit', (evt) => {
-    evt.preventDefault();
-    deleteCard(cardId)
-      .then(checkResponse)
-      .then(checkResult)
-      .then(() => {
-        document.getElementById(cardId).remove();
-      })
-      .catch(checkError);
-    closePopup(deleteCardPopup);
   });
 }
 
@@ -185,7 +167,8 @@ export {
   avatarImage,
   openPopup,
   closePopup,
-  setEventListeners,
-  submitForm,
-  deleteCardPopup
+  setSubmitHanlers,
+  deleteCardPopup,
+  deleteCardForm,
+  setEventListeners
 };

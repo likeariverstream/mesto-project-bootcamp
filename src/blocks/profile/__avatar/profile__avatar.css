@@ -9,7 +9,7 @@
 
 .profile__avatar:hover {
   opacity: .2;
-  cursor: none;
+  cursor: pointer;
 }
 
 .profile__avatar:hover:before {

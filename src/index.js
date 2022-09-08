@@ -10,50 +10,54 @@ import {
 } from './components/utils.js';
 
 import {
-  submitForm,
+  setSubmitHanlers,
   profileName,
   profileProfession,
-  addImageNameInput,
-  addImageLinkInput,
   avatarImage,
+  setEventListeners
 } from './components/modal.js';
 
 import {
   selectors,
   enableValidation,
-  hasInvalid
 } from './components/validate.js';
 
 import {
   getUserInfo,
-
-  getInitialCards,
-  patchProfile,
   getCards,
-  config
 } from './components/api.js';
 
 import {
-  checkResponse,
   checkError
 } from './components/utils.js';
 
 let myId;
-function getUserInfoResult(result) {
-  profileName.textContent = result.name;
-  profileProfession.textContent = result.about;
-  avatarImage.src = result.avatar;
-  myId = result._id;
+
+function getUserInfoResult(userData) {
+  profileName.textContent = userData.name;
+  profileProfession.textContent = userData.about;
+  avatarImage.src = userData.avatar;
+  myId = userData._id;
 }
 
-enableValidation();
+enableValidation(selectors);
 
-submitForm();
+setEventListeners();
 
-Promise.all([getUserInfo().then(checkResponse).then(getUserInfoResult),
-getCards().then(checkResponse).then(addInitialCards)])
+setSubmitHanlers();
+
+Promise.all([getUserInfo(), getCards()])
+  .then((result) => {
+    const [userData, cards] = [...result];
+    return [userData, cards];
+  })
+  .then(([userData, cards]) => {
+    // console.log(cards);
+    getUserInfoResult(userData);
+    addInitialCards(cards);
+  })
   .catch(checkError);
 
-  export {
+export {
   myId
 };

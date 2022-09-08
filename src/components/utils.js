@@ -7,16 +7,25 @@ function checkResponse(res) {
   return Promise.reject(`Ошибка: ${res.status}`);
 }
 
-function checkResult(result) {
-  console.log(result);
-}
-
 function checkError(err) {
   console.log(err);
+}
+
+function waitSaving(event) {
+  const item = event.submitter;
+  item.textContent = 'Сохранение...';
+  item.disabled = true;
+}
+
+function loadCallback(event) {
+  const item = event.submitter;
+  item.textContent = 'Сохранить';
+  item.disabled = false;
 }
 
 export {
   checkError,
   checkResponse,
-  checkResult
+  waitSaving,
+  loadCallback
 };

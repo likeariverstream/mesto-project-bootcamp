@@ -2,17 +2,16 @@
 
 import {
   openPopup,
+  closePopup,
   imagePopup,
-  submitForm,
-  deleteCardPopup
+  deleteCardPopup,
+  deleteCardForm
 } from './modal';
 
 import {
-  getNewCard,
   deleteCard,
   putLike,
   deleteLike,
-  getCards
 } from './api.js';
 
 import {
@@ -24,8 +23,6 @@ import {
 } from './validate.js';
 
 import {
-  checkResponse,
-  checkResult,
   checkError,
 } from './utils.js';
 
@@ -43,13 +40,9 @@ function addInitialCards(arr) {
   });
 }
 
-function deleteButtons(arr) {
-  Object.keys(arr).forEach((item) => {
-    const elem = createCard(arr[item]);
-    const deleteButton = elem.querySelector('.element__delete-button');
-    deleteButton.remove();
-  });
-}
+let cardId;
+let targetElement;
+let button;
 
 function createCard(item) {
   const cardElement = card.cloneNode(true),
@@ -58,7 +51,6 @@ function createCard(item) {
     likeButtonCardElement = cardElement.querySelector('.element__like-button'),
     deleteButtonCardElement = cardElement.querySelector('.element__delete-button'),
     likeCount = cardElement.querySelector('.element__like-count');
-
   if (item.owner._id !== myId) {
     deleteButtonCardElement.remove();
   }
@@ -69,41 +61,45 @@ function createCard(item) {
       }
     }
   }
-  cardElement.addEventListener('click', (evt) => {
-    if (evt.target === likeButtonCardElement) {
-      if (!likeButtonCardElement.classList.contains(selectors.activeLikeClass)) {
-        putLike(evt.target.parentNode.parentNode.parentNode.id)
-          .then(checkResponse)
-          .then((result) => {
-            console.log(result.likes.length);
-            likeCount.textContent = result.likes.length;
-            likeButtonCardElement.classList.add(selectors.activeLikeClass);
-          })
-          .catch(checkError);
-      }
-      else {
-        deleteLike(evt.target.parentNode.parentNode.parentNode.id)
-          .then(checkResponse)
-          .then((result) => {
-            console.log(result.likes.length);
-            likeButtonCardElement.classList.remove(selectors.activeLikeClass);
-            likeCount.textContent = result.likes.length;
-          })
-          .catch(checkError);
-      }
+  likeButtonCardElement.addEventListener('click', (evt) => {
+    if (!likeButtonCardElement.classList.contains(selectors.activeLikeClass)) {
+      putLike(item._id)
+        .then((result) => {
+          console.log(result.likes.length);
+          likeCount.textContent = result.likes.length;
+          likeButtonCardElement.classList.add(selectors.activeLikeClass);
+        })
+        .catch(checkError);
     }
-    if (evt.target === imageCardElement) {
-      imagePopupImage.src = evt.target.src;
-      imagePopupImage.alt = evt.target.alt;
-      imagePopupTitle.textContent = titleCardElement.textContent;
-      openPopup(imagePopup);
+    else {
+      deleteLike(item._id)
+        .then((result) => {
+          console.log(result.likes.length);
+          likeButtonCardElement.classList.remove(selectors.activeLikeClass);
+          likeCount.textContent = result.likes.length;
+        })
+        .catch(checkError);
     }
-    if (evt.target === deleteButtonCardElement) {
-      const cardId = evt.target.parentNode.id;
-      console.log(cardId);
-      openPopup(deleteCardPopup);
-      submitForm(item._id);
-    }
+  });
+  deleteButtonCardElement.addEventListener('click', (evt) => {
+    cardId = evt.target.closest('.element').id;
+    targetElement = evt.target.closest('.element');
+    openPopup(deleteCardPopup);
+    deleteCard(cardId)
+      .then(() => {
+        deleteCardForm.addEventListener('submit', (evt) => {
+          evt.preventDefault();
+          targetElement.remove();
+          closePopup(deleteCardPopup);
+        });
+      })
+      .catch(checkError);
+  });
+  imageCardElement.addEventListener('click', (evt) => {
+    imagePopupImage.src = evt.target.src;
+    imagePopupImage.alt = evt.target.alt;
+    imagePopupTitle.textContent = titleCardElement.textContent;
+    openPopup(imagePopup);
   });
   imageCardElement.src = item.link;
   imageCardElement.alt = item.name;
@@ -120,6 +116,5 @@ export {
   imageCard,
   titleCard,
   addInitialCards,
-  createCard,
-  deleteButtons
+  createCard
 };
