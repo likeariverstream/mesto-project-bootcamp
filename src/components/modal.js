@@ -15,6 +15,7 @@ const profileEditForm = document.querySelector('form[name="edit-form"]');
 const addImageForm = document.querySelector('form[name="add-form"]');
 const updateAvatarPopup = document.querySelector('.popup__update-avatar');
 const avatarImage = document.querySelector('.profile__avatar-image');
+const avatarProfileUpdateContainer = document.querySelector('.profile__update-container');
 const updateAvatarForm = document.querySelector('form[name="update-avatar-form"]');
 const avatarLinkInput = document.querySelector('input[name="avatar-link"]');
 const deleteCardForm = document.querySelector('form[name="delete-card-form"]');
@@ -23,19 +24,21 @@ const popups = document.querySelectorAll('.popup');
 
 import {
   disableSaveButton,
-  selectors,
+  settings
 } from './validate.js';
 
 import {
   cardList,
   createCard,
+  elemId,
+  targetElement
 } from './card.js';
 
 import {
   patchProfile,
   patchAvatar,
   getNewCard,
-
+  deleteCard
 } from './api.js';
 
 import {
@@ -45,15 +48,15 @@ import {
 import {
   checkError,
   waitSaving,
-  loadCallback
+  stopSaving
 } from './utils.js';
+console.dir(document.querySelector('.popup__input'));
 
 function prependNewCard(result) {
   cardList.prepend(createCard(result));
 }
 
 function openPopup(popup) {
-  disableSaveButton(popup);
   popup.classList.add('popup_opened');
   document.addEventListener('keydown', closebByEscape);
 }
@@ -63,32 +66,39 @@ function closePopup(popup) {
   document.removeEventListener('keydown', closebByEscape);
 }
 
-avatarImage.addEventListener('click', () => {
+avatarProfileUpdateContainer.addEventListener('click', (evt) => {
   openPopup(updateAvatarPopup);
+  disableSaveButton(updateAvatarPopup, { ...settings });
 });
 
 profileEditButton.addEventListener('click', () => {
   openPopup(profilePopup);
   inputFullName.value = profileName.textContent;
   inputProfession.value = profileProfession.textContent;
-  if (profileEditForm.checkValidity()) {
-    const button = profileEditForm.querySelector(selectors.submitButtonSelector);
-    button.disabled = false;
-    button.focus();
-  }
 });
 
 addCardButton.addEventListener('click', () => {
   openPopup(cardPopup);
+  disableSaveButton(cardPopup, { ...settings });
 });
 
-function setEventListeners() {
+deleteCardForm.addEventListener('submit', (evt) => {
+  evt.preventDefault();
+  deleteCard(elemId)
+    .then(() => {
+      targetElement.remove();
+      closePopup(deleteCardPopup);
+    })
+    .catch(checkError);
+});
+
+function setPopupCloseEventListeners(selectors) {
   popups.forEach((popup) => {
     popup.addEventListener('mousedown', (evt) => {
-      if (evt.target.classList.contains(selectors.popupSelector)) {
+      if (evt.target.classList.contains(selectors.popupClass)) {
         closePopup(popup);
       }
-      if (evt.target.classList.contains(selectors.buttonClose)) {
+      if (evt.target.classList.contains(selectors.buttonCloseClass)) {
         closePopup(popup);
       }
     });
@@ -112,12 +122,10 @@ function setSubmitHanlers() {
       .then(() => {
         profileName.textContent = name;
         profileProfession.textContent = about;
-      })
-      .then(() => {
         closePopup(profilePopup);
       })
       .catch(checkError)
-      .finally(() => loadCallback(evt));
+      .finally(() => stopSaving(evt));
   });
   addImageForm.addEventListener('submit', (evt) => {
     evt.preventDefault();
@@ -134,12 +142,11 @@ function setSubmitHanlers() {
       .then((result) => {
         objCard._id = result._id;
         prependNewCard(objCard);
-      })
-      .then(() => {
         closePopup(cardPopup);
+        addImageForm.reset();
       })
       .catch(checkError)
-      .finally(() => loadCallback(evt));
+      .finally(() => stopSaving(evt));
   });
   updateAvatarForm.addEventListener('submit', (evt) => {
     evt.preventDefault();
@@ -148,10 +155,11 @@ function setSubmitHanlers() {
     patchAvatar(input)
       .then(() => {
         avatarImage.src = input;
+        closePopup(updateAvatarPopup);
+        updateAvatarForm.reset();
       })
-      .then(closePopup(updateAvatarPopup))
       .catch(checkError)
-      .finally(() => loadCallback(evt));
+      .finally(() => stopSaving(evt));
   });
 }
 
@@ -170,5 +178,5 @@ export {
   setSubmitHanlers,
   deleteCardPopup,
   deleteCardForm,
-  setEventListeners
+  setPopupCloseEventListeners
 };

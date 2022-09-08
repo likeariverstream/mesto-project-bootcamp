@@ -14,11 +14,11 @@ import {
   profileName,
   profileProfession,
   avatarImage,
-  setEventListeners
+  setPopupCloseEventListeners
 } from './components/modal.js';
 
 import {
-  selectors,
+  settings,
   enableValidation,
 } from './components/validate.js';
 
@@ -40,19 +40,14 @@ function getUserInfoResult(userData) {
   myId = userData._id;
 }
 
-enableValidation(selectors);
-
-setEventListeners();
+enableValidation(settings);
 
 setSubmitHanlers();
 
+setPopupCloseEventListeners(settings);
+
 Promise.all([getUserInfo(), getCards()])
-  .then((result) => {
-    const [userData, cards] = [...result];
-    return [userData, cards];
-  })
   .then(([userData, cards]) => {
-    // console.log(cards);
     getUserInfoResult(userData);
     addInitialCards(cards);
   })

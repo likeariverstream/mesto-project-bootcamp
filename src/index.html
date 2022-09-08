@@ -5,7 +5,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mesto</title>
-  <!-- <link rel="stylesheet" href="./pages/index.css"> -->
 </head>
 
 <body class="root">
@@ -15,8 +14,10 @@
     </header>
     <main class="content">
       <section class="profile">
-        <div class="profile__avatar"><img class="profile__avatar-image" src="<%=require('./images/image_avatar.jpg')%>"
-            alt="Аватар"></div>
+        <div class="profile__avatar">
+          <img class="profile__avatar-image" src="<%=require('./images/image_avatar.jpg')%>" alt="Аватар">
+          <div class="profile__update-container"></div>
+        </div>
         <div class="profile__info">
           <div class="profile__caption">
             <h1 class="profile__title">Жак-Ив Кусто</h1>

@@ -2,14 +2,11 @@
 
 import {
   openPopup,
-  closePopup,
   imagePopup,
   deleteCardPopup,
-  deleteCardForm
 } from './modal';
 
 import {
-  deleteCard,
   putLike,
   deleteLike,
 } from './api.js';
@@ -19,7 +16,6 @@ import {
 } from '../index.js';
 
 import {
-  selectors
 } from './validate.js';
 
 import {
@@ -40,9 +36,8 @@ function addInitialCards(arr) {
   });
 }
 
-let cardId;
+let elemId;
 let targetElement;
-let button;
 
 function createCard(item) {
   const cardElement = card.cloneNode(true),
@@ -57,17 +52,17 @@ function createCard(item) {
   if (item.likes.length !== 0) {
     for (let i = 0; i < item.likes.length; i++) {
       if (item.likes[i]._id === myId) {
-        likeButtonCardElement.classList.add(selectors.activeLikeClass);
+        likeButtonCardElement.classList.add('element__like-button_active');
       }
     }
   }
   likeButtonCardElement.addEventListener('click', (evt) => {
-    if (!likeButtonCardElement.classList.contains(selectors.activeLikeClass)) {
+    if (!likeButtonCardElement.classList.contains('element__like-button_active')) {
       putLike(item._id)
         .then((result) => {
           console.log(result.likes.length);
           likeCount.textContent = result.likes.length;
-          likeButtonCardElement.classList.add(selectors.activeLikeClass);
+          likeButtonCardElement.classList.add('element__like-button_active');
         })
         .catch(checkError);
     }
@@ -75,25 +70,17 @@ function createCard(item) {
       deleteLike(item._id)
         .then((result) => {
           console.log(result.likes.length);
-          likeButtonCardElement.classList.remove(selectors.activeLikeClass);
+          likeButtonCardElement.classList.remove('element__like-button_active');
           likeCount.textContent = result.likes.length;
         })
         .catch(checkError);
     }
   });
   deleteButtonCardElement.addEventListener('click', (evt) => {
-    cardId = evt.target.closest('.element').id;
     targetElement = evt.target.closest('.element');
+    elemId = targetElement.id;
     openPopup(deleteCardPopup);
-    deleteCard(cardId)
-      .then(() => {
-        deleteCardForm.addEventListener('submit', (evt) => {
-          evt.preventDefault();
-          targetElement.remove();
-          closePopup(deleteCardPopup);
-        });
-      })
-      .catch(checkError);
+
   });
   imageCardElement.addEventListener('click', (evt) => {
     imagePopupImage.src = evt.target.src;
@@ -116,5 +103,7 @@ export {
   imageCard,
   titleCard,
   addInitialCards,
-  createCard
+  createCard,
+  elemId,
+  targetElement
 };

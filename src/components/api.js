@@ -9,7 +9,7 @@ const config = {
   headers: {
     authorization: 'f69a8e1a-7b4c-4898-9f33-97539dca3c0c',
     'Content-Type': 'application/json'
-  }
+  },
 };
 
 function getUserInfo() {
@@ -19,14 +19,12 @@ function getUserInfo() {
     .then(checkResponse);
 }
 
-function getCards() { // получаем массив карточек с сервера
+function getCards() {
   return fetch(`${config.baseUrl}/cards`, {
     headers: config.headers
   })
     .then(checkResponse);
-}
-
-// меняем данные профиля при редактировании
+};
 
 function patchProfile(fullname, profession) {
   return fetch(`${config.baseUrl}/users/me`, {
@@ -41,7 +39,7 @@ function patchProfile(fullname, profession) {
 }
 
 function patchAvatar(link) {
-  return fetch(`${config.baseUrl}/users/me/avatar`, { // меняем аватар
+  return fetch(`${config.baseUrl}/users/me/avatar`, {
     method: 'PATCH',
     headers: config.headers,
     body: JSON.stringify({
@@ -51,7 +49,6 @@ function patchAvatar(link) {
     .then(checkResponse);
 }
 
-// отправляем новую карточку на сервер
 function getNewCard(obj) {
   return fetch(`${config.baseUrl}/cards`, {
     method: 'POST',
@@ -81,7 +78,6 @@ function deleteLike(cardId) {
     .then(checkResponse);
 }
 
-// удаляем карточку на сервере
 function deleteCard(cardId) {
   return fetch(`${config.baseUrl}/cards/${cardId}`, {
     method: 'DELETE',
@@ -92,8 +88,6 @@ function deleteCard(cardId) {
     .then(checkResponse);
 }
 
-
-
 export {
   getUserInfo,
   patchProfile,
@@ -103,5 +97,4 @@ export {
   putLike,
   deleteLike,
   getCards,
-  config
 };

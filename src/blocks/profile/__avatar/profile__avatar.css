@@ -5,10 +5,11 @@
   box-sizing: border-box;
   width: 120px;
   position: relative;
+  transition: .2s ease-in-out;
 }
 
 .profile__avatar:hover {
-  opacity: .2;
+  opacity: .6;
   cursor: pointer;
 }
 
@@ -22,4 +23,5 @@
   position: absolute;
   top: 44px;
   left: 46px;
+  
 }

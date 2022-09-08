@@ -1,0 +1,8 @@
+.profile__update-container {
+  width: 26px;
+  height: 26px;
+  position: absolute;
+  top: 44px;
+  left: 46px;
+  cursor: pointer;
+}
