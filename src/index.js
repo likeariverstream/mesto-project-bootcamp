@@ -51,7 +51,9 @@ Promise.all([getUserInfo(), getCards()])
     getUserInfoResult(userData);
     addInitialCards(cards);
   })
-  .catch(checkError);
+  .catch((err) => {
+    checkError(err);
+  });
 
 export {
   myId

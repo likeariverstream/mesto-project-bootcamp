@@ -89,7 +89,9 @@ deleteCardForm.addEventListener('submit', (evt) => {
       targetElement.remove();
       closePopup(deleteCardPopup);
     })
-    .catch(checkError);
+    .catch((err) => {
+      checkError(err);
+    });
 });
 
 function setPopupCloseEventListeners(selectors) {
@@ -124,7 +126,9 @@ function setSubmitHanlers() {
         profileProfession.textContent = about;
         closePopup(profilePopup);
       })
-      .catch(checkError)
+      .catch((err) => {
+        checkError(err);
+      })
       .finally(() => stopSaving(evt));
   });
   addImageForm.addEventListener('submit', (evt) => {
@@ -145,7 +149,9 @@ function setSubmitHanlers() {
         closePopup(cardPopup);
         addImageForm.reset();
       })
-      .catch(checkError)
+      .catch((err) => {
+        checkError(err);
+      })
       .finally(() => stopSaving(evt));
   });
   updateAvatarForm.addEventListener('submit', (evt) => {
@@ -158,7 +164,9 @@ function setSubmitHanlers() {
         closePopup(updateAvatarPopup);
         updateAvatarForm.reset();
       })
-      .catch(checkError)
+      .catch((err) => {
+        checkError(err);
+      })
       .finally(() => stopSaving(evt));
   });
 }

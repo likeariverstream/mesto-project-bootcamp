@@ -11,8 +11,6 @@ function checkError(err) {
   console.log(err);
 }
 
-
-
 function waitSaving(event) {
   const item = event.submitter;
   item.textContent = 'Сохранение...';

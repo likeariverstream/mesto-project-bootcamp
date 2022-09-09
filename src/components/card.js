@@ -64,7 +64,9 @@ function createCard(item) {
           likeCount.textContent = result.likes.length;
           likeButtonCardElement.classList.add('element__like-button_active');
         })
-        .catch(checkError);
+        .catch((err) => {
+          checkError(err);
+        });
     }
     else {
       deleteLike(item._id)
@@ -73,7 +75,9 @@ function createCard(item) {
           likeButtonCardElement.classList.remove('element__like-button_active');
           likeCount.textContent = result.likes.length;
         })
-        .catch(checkError);
+        .catch((err) => {
+          checkError(err);
+        });
     }
   });
   deleteButtonCardElement.addEventListener('click', (evt) => {
